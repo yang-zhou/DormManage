@@ -25,11 +25,11 @@ $(document).ready(function(){
 	$("#DataTables_Table_0_wrapper .row-fluid").remove();
 	laydate.render({
 		elem: '#startDate'
-		,type: 'date'
+		,type: 'datetime'
 	});
 	laydate.render({
 		elem: '#endDate'
-		,type: 'date'
+		,type: 'datetime'
 	});
 });
 
@@ -47,7 +47,7 @@ window.onload = function(){
 		<div class="data_list_title">
 			外来访问记录
 		</div>
-		<form name="myForm" class="form-search" method="post" action="record?action=search" style="padding-bottom: 0px">
+		<form name="myForm" class="form-search" method="post" action="visitorRecord?action=search" style="padding-bottom: 0px">
 				<button class="btn btn-success" type="button" style="margin-right: 50px;" onclick="javascript:window.location='visitorRecord?action=preSave'">添加</button>
 				<span class="data_search">
 					<span><font style="font-family: '黑体'; font-style: 'bold'; font-size: 20px" color="blue">${dormBuildName }&nbsp;&nbsp;</font></span>

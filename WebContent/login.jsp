@@ -4,12 +4,11 @@
 <%@ page import="com.lero.model.DormManager" %>
 <%@ page import="com.lero.model.Student" %>
 <%
+	String userName=null;
+	String password=null;
+	String userType=null;
+	String remember=null;
 	if(request.getAttribute("user")==null){
-		String userName=null;
-		String password=null;
-		String userType=null;
-		String remember=null;
-		
 		Cookie[] cookies=request.getCookies();
 		for(int i=0;cookies!=null && i<cookies.length;i++){
 			if(cookies[i].getName().equals("dormuser")){
@@ -32,13 +31,13 @@
 			userType="";
 		} else if("admin".equals(userType)){
 			pageContext.setAttribute("user", new Admin(userName,password));
-			pageContext.setAttribute("userType", 1);
+			//pageContext.setAttribute("userType", 1);
 		} else if("dormManager".equals(userType)) {
 			pageContext.setAttribute("user", new DormManager(userName,password));
-			pageContext.setAttribute("userType", 2);
+			//pageContext.setAttribute("userType", 2);
 		} else if("student".equals(userType)) {
 			pageContext.setAttribute("user", new Student(userName,password));
-			pageContext.setAttribute("userType", 3);
+			//pageContext.setAttribute("userType", 3);
 		}
 		
 		if("yes".equals(remember)) {
@@ -52,22 +51,16 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>宿舍管理系统登录</title>
-<link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-<script src="${pageContext.request.contextPath}/bootstrap/js/jQuery.js"></script>
-<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
+<link href="${pageContext.request.contextPath}/source/plugs/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/source/plugs/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/source/bootstrap/js/jQuery.js"></script>
+<script src="${pageContext.request.contextPath}/source/plugs/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
 	function checkForm() {
 		var userName = document.getElementById("userName").value;
 		var password = document.getElementById("password").value;
-		var userTypes = document.getElementsByName("userType");
-		var userType = null;
-		for(var i=0;i<userTypes.length;i++) {
-			if(userTypes[i].checked) {
-				userType=userTypes[i].value;
-				break;
-			}
-		}
+		var userType = document.getElementById("userType").value;
 		if (userName == null || userName == "") {
 			document.getElementById("error").innerHTML = "用户名不能为空";
 			return false;
@@ -88,7 +81,7 @@
 	  body {
         padding-top: 200px;
         padding-bottom: 40px;
-        background-image: url('images/bg.jpg');
+        background-image: url('source/images/bg.jpg');
         background-position: center;
 		background-repeat: no-repeat;
 		background-attachment: fixed;
@@ -134,26 +127,32 @@
 <div class="container">
       <form name="myForm" class="form-signin" action="login" method="post" onsubmit="return checkForm()">
         <h2 class="form-signin-heading"><font color="gray">宿舍管理系统</font></h2>
-        <input id="userName" name="userName" value="${user.userName }" type="text" class="input-block-level" placeholder="账号">
-        <input id="password" name="password" value="${user.password }" type="password" class="input-block-level" placeholder="密码" >
-        <label class="radio inline">
-      	  	<input id="admin" type="radio" name="userType" value="admin"  checked/> 系统管理员
-		</label>
-		<label class="radio inline">
-			<input id="dormManager" type="radio" name="userType" value="dormManager" ${userType==2?'checked':''} /> 宿舍管理员
-		</label>
-		<label class="radio inline">
-			<input id="student" type="radio" name="userType" value="student"  ${userType==3?'checked':''}/> 学生
-		</label>
-        <label class="checkbox">
+        <input id="userName" name="userName" value="${user.userName }" type="text" class="form-control" placeholder="账号">
+        <input id="password" name="password" value="${user.password }" type="password" class="form-control" placeholder="密码" >
+        <select id="userType" name="userType" class="form-control">
+        	<option value="">请选择...</option>
+        	<option value="admin">系统管理员</option>
+        	<option value="dormManager">宿舍管理员</option>
+        	<option value="student">学生</option>
+        </select>
+        <label class="checkbox" style="padding-left: 20px">
           <input id="remember" name="remember" type="checkbox" value="remember-me" ${remember==1?'checked':''}>记住我 &nbsp;&nbsp;&nbsp;&nbsp; <font id="error" color="red">${error }</font>  
         </label>
         <button class="btn btn-large btn-primary" type="submit">登录</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <button class="btn btn-large btn-primary" type="button" >重置</button>
 
-		<p align="center" style="padding-top: 15px;">版权所有  2014</p>
+		<p align="center" style="padding-top: 15px;"></p>
       </form>
 </div>
 </body>
+<script type="text/javascript">
+$(document).ready(function(){
+	console.log("<%=userType%>");
+	if("<%=userType%>" != ""){
+		console.log($("#userType")[0]);
+		$("#userType").val("<%=userType%>");
+	}
+})
+</script>
 </html>

@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 				currentAdmin = userDao.Login(con, admin);
 				if(currentAdmin == null) {
 					request.setAttribute("admin", admin);
-					request.setAttribute("error", "�û������������");
+					request.setAttribute("error", "登陆信息错误！");
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				} else {
 					if("remember-me".equals(remember)) {
@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 				currentDormManager = userDao.Login(con, dormManager);
 				if(currentDormManager == null) {
 					request.setAttribute("dormManager", dormManager);
-					request.setAttribute("error", "登陆错误！");
+					request.setAttribute("error", "登陆信息错误！");
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				} else {
 					if("remember-me".equals(remember)) {
@@ -89,7 +89,7 @@ public class LoginServlet extends HttpServlet {
 				currentStudent = userDao.Login(con, student);
 				if(currentStudent == null) {
 					request.setAttribute("student", student);
-					request.setAttribute("error", "�û������������");
+					request.setAttribute("error", "登陆信息错误！");
 					request.getRequestDispatcher("login.jsp").forward(request, response);
 				} else {
 					if("remember-me".equals(remember)) {
@@ -117,8 +117,10 @@ public class LoginServlet extends HttpServlet {
 
 	private void rememberMe(String userName, String password, String userType, HttpServletResponse response) {
 		Cookie user = new Cookie("dormuser", userName+"-"+password+"-"+userType+"-"+"yes");
+		Cookie type = new Cookie("type", userType);
 		user.setMaxAge(1*60*60*24*7);
 		response.addCookie(user);
+		response.addCookie(type);
 	}
 	
 	private void deleteCookie(String userName, HttpServletRequest request, HttpServletResponse response) {

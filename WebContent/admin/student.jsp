@@ -7,7 +7,7 @@
 $(document).ready(function(){
 	$("ul li:eq(2)").addClass("active");
 	$("ul li:eq(2)").css("background-color","lightblue");
-	$('.datatable').dataTable( {        				
+/* 	$('.datatable').dataTable( {        				
 		 "oLanguage": {
 				"sUrl": "/DormManage/media/zh_CN.json"
 		 },
@@ -22,7 +22,7 @@ $(document).ready(function(){
 			{ "asSorting": [ ] },
 			{ "asSorting": [ ] }
 		]
-	});
+	}); */
 });
 
 window.onload = function(){ 

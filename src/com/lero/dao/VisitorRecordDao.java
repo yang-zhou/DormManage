@@ -128,10 +128,10 @@ public class VisitorRecordDao {
 			sb.append(" and t1.vis_dorm_build_room like '%"+visitorRecord.getVisDormBuildRoom()+"%'");
 		}
 		if(StringUtil.isNotEmpty(visitorRecord.getVisInTime())) {
-			sb.append(" and "+visitorRecord.getVisInTime()+" < t1.vis_in_time");
+			sb.append(" and t1.vis_in_time >= "+"\'"+visitorRecord.getVisInTime()+"\'");
 		}
 		if(StringUtil.isNotEmpty(visitorRecord.getVisOutTime())) {
-			sb.append(" and "+visitorRecord.getVisOutTime()+" > t1.vis_out_time");
+			sb.append(" and t1.vis_out_time <= "+"\'"+visitorRecord.getVisOutTime()+"\'");
 		}
 		sb.append(" and t1.vis_dorm_build="+buildId);
 		PreparedStatement pstmt = conn.prepareStatement(sb.toString().replaceFirst("and", "where"));

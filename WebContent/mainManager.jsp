@@ -8,7 +8,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>宿舍管理系统</title>
-<link href="${pageContext.request.contextPath}/style/dorm.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/source/style/dorm.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/source/plugs/bootstrap/css/bootstrap.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/source/plugs/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
 <link href="${pageContext.request.contextPath}/source/plugs/bootstrap-table/bootstrap-table.css" rel="stylesheet">
@@ -67,7 +67,6 @@
     opacity: 0.5;
 }
 .bs-docs-sidenav .active .icon-chevron-right, .bs-docs-sidenav .active a:hover .icon-chevron-right {
-    background-image: url("../img/glyphicons-halflings-white.png");
     opacity: 1;
 }
 .nav{
@@ -81,7 +80,7 @@
 </head>
 <body>
 <div class="container-fluid" style="padding-right: 0px;padding-left: 0px;">
-	<div style="height: 100px;background-image: url('images/bg.jpg')">
+	<div style="height: 100px;background-image: url('source/images/bg.jpg')">
 		<div align="left" style="width: 80%;height:100px ;float: left;padding-top: 40px;padding-left: 30px;" ><font color="white" size="6" >宿舍管理系统</font></div>
 		<div style="padding-top: 70px;padding-right: 20px;">当前用户：&nbsp;<font color="red" >${currentUser.userName }</font></div>
 	</div>

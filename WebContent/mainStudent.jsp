@@ -8,18 +8,17 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>宿舍管理系统</title>
-<link href="${pageContext.request.contextPath}/style/dorm.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-<link href="${pageContext.request.contextPath}/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-<link rel="stylesheet" type="text/css" href="http://sandbox.runjs.cn/uploads/rs/238/n8vhm36h/dataTables.bootstra.css">
-<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/238/n8vhm36h/jquery.js"></script>
-<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/238/n8vhm36h/jquery.dataTables.js"></script>
-<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/238/n8vhm36h/bootstrap.min.js"></script>
-<script type="text/javascript" src="http://sandbox.runjs.cn/uploads/rs/238/n8vhm36h/dataTables.bootstrap.js"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/bootstrap-datetimepicker-master/js/locales/bootstrap-datetimepicker.fr.js" charset="UTF-8"></script>
-<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
+<link href="${pageContext.request.contextPath}/source/style/dorm.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/source/plugs/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/source/plugs/bootstrap/css/bootstrap-theme.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/source/plugs/bootstrap-table/bootstrap-table.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/source/plugs/laydate/theme/default/laydate.css" rel="stylesheet">
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/source/plugs/jquery/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/source/plugs/bootstrap/js/bootstrap.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/source/plugs/bootstrap-table/bootstrap-table.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/source/plugs/bootstrap-table/bootstrap-table-zh-CN.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/source/plugs/laydate/laydate.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function(){
@@ -68,7 +67,6 @@
     opacity: 0.5;
 }
 .bs-docs-sidenav .active .icon-chevron-right, .bs-docs-sidenav .active a:hover .icon-chevron-right {
-    background-image: url("../img/glyphicons-halflings-white.png");
     opacity: 1;
 }
 </style>
@@ -76,7 +74,7 @@
 </head>
 <body>
 <div class="container-fluid" style="padding-right: 0px;padding-left: 0px;">
-	<div region="north" style="height: 100px;background-image: url('images/bg.jpg')">
+	<div region="north" style="height: 100px;background-image: url('source/images/bg.jpg')">
 		<div align="left" style="width: 80%;height:100px ;float: left;padding-top: 40px;padding-left: 30px;" ><font color="white" size="6" >宿舍管理系统</font></div>
 		<div style="padding-top: 70px;padding-right: 20px;">当前用户：&nbsp;<font color="red" >${currentUser.userName }</font></div>
 	</div>
