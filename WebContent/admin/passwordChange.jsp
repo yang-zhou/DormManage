@@ -17,8 +17,8 @@ function checkForm(){
 }
 	
 	$(document).ready(function(){
-		$("ul li:eq(6)").addClass("active");
-		$("ul li:eq(6)").css("background-color","lightblue");
+		$("ul li:eq(7)").addClass("active");
+		$("ul li:eq(7)").css("background-color","lightblue");
 	});
 </script>
 <div class="data_list">

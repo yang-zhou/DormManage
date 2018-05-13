@@ -14,10 +14,12 @@ import javax.websocket.Session;
 
 import com.google.gson.Gson;
 import com.lero.dao.DormBuildDao;
+import com.lero.dao.DormRoomDao;
 import com.lero.dao.StudentDao;
 import com.lero.dao.VisitorRecordDao;
 import com.lero.model.DormBuild;
 import com.lero.model.DormManager;
+import com.lero.model.DormRoom;
 import com.lero.model.PageBean;
 import com.lero.model.Student;
 import com.lero.model.VisitorRecord;
@@ -25,14 +27,15 @@ import com.lero.util.DbUtil;
 import com.lero.util.PropertiesUtil;
 import com.lero.util.StringUtil;
 
-public class VisitorRecordServlet extends HttpServlet{
+public class DormRoomServlet extends HttpServlet{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	DbUtil dbUtil = new DbUtil();
-	private VisitorRecordDao visitorRecordDao = new VisitorRecordDao();
+	private DormRoomDao dormRoomDao = new DormRoomDao();
+	private DormBuildDao dormBuildDao = new DormBuildDao();
 	private StudentDao studentDao = new StudentDao();
 	
 	@Override
@@ -47,25 +50,23 @@ public class VisitorRecordServlet extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		Object currentUserType = session.getAttribute("currentUserType");
-		String startDate = request.getParameter("startDate");
-		String endDate = request.getParameter("endDate");
-		String s_visitorRecordText = request.getParameter("s_visitorRecordText");
+		String s_dormRoomText = request.getParameter("s_dormRoomText");
 		String dormBuildId = request.getParameter("buildToSelect");
 		String searchType = request.getParameter("searchType");
 		String page = request.getParameter("page");
 		String action = request.getParameter("action");
-		VisitorRecord visitorRecord = new VisitorRecord();
+		DormRoom dormRoom = new DormRoom();
 		Connection conn = null;
 		if("preSave".equals(action)) {
-			visitorRecordPreSave(request, response);
+			dormRoomPreSave(request, response);
 			return;
 		} else if("save".equals(action)){
-			visitorRecordSave(request, response);
+			dormRoomSave(request, response);
 			return;
 		} else if("list".equals(action)) {
 		
 		} else if("search".equals(action)) {
-			if(StringUtil.isNotEmpty(s_visitorRecordText)) {
+			/*if(StringUtil.isNotEmpty(s_visitorRecordText)) {
 				if("name".equals(searchType)) {
 					visitorRecord.setVisName(s_visitorRecordText);
 				} else if("dormRoom".equals(searchType)) {
@@ -82,13 +83,7 @@ public class VisitorRecordServlet extends HttpServlet{
 				session.setAttribute("buildToSelect", dormBuildId);
 			}else {
 				session.removeAttribute("buildToSelect");
-			}
-			if(StringUtil.isNotEmpty(startDate)) {
-				visitorRecord.setVisInTime(startDate);
-			}
-			if(StringUtil.isNotEmpty(endDate)) {
-				visitorRecord.setVisOutTime(endDate);
-			}
+			}*/
 		}	
 		if(StringUtil.isEmpty(page)) {
 			page="1";
@@ -99,23 +94,23 @@ public class VisitorRecordServlet extends HttpServlet{
 		try {
 			conn = dbUtil.getCon();
 			if("admin".equals((String)currentUserType)) {
-				List<VisitorRecord> visitorRecordList = visitorRecordDao.listVisitorRecord(conn, pageBean, visitorRecord);
-				int total=visitorRecordDao.visitorRecordCount(conn, visitorRecord);
+				List<DormRoom> dormRoomList = dormRoomDao.dormBuildList(conn, pageBean);
+				int total=dormRoomDao.dormRoomCount(conn, dormRoom);
 				String pageCode = this.genPagation(total, Integer.parseInt(page), Integer.parseInt(PropertiesUtil.getValue("pageSize")));
 				request.setAttribute("pageCode", pageCode);
-				request.setAttribute("visitorRecordList", visitorRecordList);
+				request.setAttribute("dormRoomList", dormRoomList);
 				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
-				request.setAttribute("mainPage", "admin/visitorRecord.jsp");
+				request.setAttribute("mainPage", "admin/dormRoom.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			} else if("dormManager".equals((String)currentUserType)) {
 				DormManager manager = (DormManager)(session.getAttribute("currentUser"));
 				int buildId = manager.getDormBuildId();
 				String buildName = DormBuildDao.dormBuildName(conn, buildId);
-				List<VisitorRecord> visitorRecordList = visitorRecordDao.visitorRecordWithBuild(conn, visitorRecord, buildId);
+				//List<VisitorRecord> visitorRecordList = visitorRecordDao.visitorRecordWithBuild(conn, visitorRecord, buildId);
 				request.setAttribute("dormBuildName", buildName);
-				request.setAttribute("visitorRecordList", visitorRecordList);
+				//request.setAttribute("visitorRecordList", visitorRecordList);
 				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
-				request.setAttribute("mainPage", "dormManager/visitorRecord.jsp");
+				request.setAttribute("mainPage", "dormManager/dormRoom.jsp");
 				request.getRequestDispatcher("mainManager.jsp").forward(request, response);
 			}
 			
@@ -133,41 +128,41 @@ public class VisitorRecordServlet extends HttpServlet{
 		}
 	}
 	
-	private void visitorRecordSave(HttpServletRequest request, HttpServletResponse response) {
+	private void dormRoomSave(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
-		String visName = request.getParameter("visName");
-		String visSex = request.getParameter("visSex");
-		String visIdCard = request.getParameter("visIdCard");
-		String visPhone = request.getParameter("visPhone");
-		String visDormBuild = request.getParameter("visDormBuild");
-		String visDormBuildName = request.getParameter("visDormBuildName");
-		String visDormBuildRoom = request.getParameter("visDormBuildRoom");
-		String visInTime = request.getParameter("visInTime");
-		String visOutTime = request.getParameter("visOutTime");
-		String checkedId = request.getParameter("checkedId");
+		String dormBuildId = request.getParameter("dormBuildId");
+		String dormBuildName = request.getParameter("dormBuildName");
+		String dormRoomNumber = request.getParameter("dormRoomNumber");
+		String dormRoomName = request.getParameter("dormRoomName");
+		String dormRoomTel = request.getParameter("dormRoomTel");
+		String dormRoomMax = request.getParameter("dormRoomMax");
 		String remark = request.getParameter("remark");
 		
-		VisitorRecord visitorRecord = new VisitorRecord(visName, visSex, visIdCard, visPhone, visDormBuild,
-				visDormBuildName, visDormBuildRoom, visInTime, visOutTime, checkedId, remark);
+		DormRoom dormRoom = new DormRoom(dormBuildId,dormBuildName, dormRoomNumber, dormRoomName, dormRoomTel, dormRoomMax, remark);
 		if(StringUtil.isNotEmpty(id)) {
-			visitorRecord.setId(id);
+			dormRoom.setId(id);
 		}
-		Connection con = null;
+		Connection con = null;		
 		try {
 			con = dbUtil.getCon();
 			int saveNum = 0;
+			if(StringUtil.isNotEmpty(dormBuildId)) {
+				DormBuild dormBuild = dormBuildDao.dormBuildShow(con, dormBuildId);
+				dormBuildName = dormBuild.getDormBuildName();
+				dormRoom.setDormBuildName(dormBuildName);
+			}
 			if(StringUtil.isNotEmpty(id)) {
 				//saveNum = studentDao.studentUpdate(con, student);
 			} else {
-				saveNum = visitorRecordDao.visitorRecordAdd(con, visitorRecord);
+				saveNum = dormRoomDao.dormRoomAdd(con, dormRoom);
 			}
 			if(saveNum > 0) {
-				request.getRequestDispatcher("visitorRecord?action=list").forward(request, response);
+				request.getRequestDispatcher("dormRoom?action=list").forward(request, response);
 			} else {
-				request.setAttribute("visitorRecord", visitorRecord);
+				request.setAttribute("dormRoom", dormRoom);
 				request.setAttribute("error", "保存异常！");
-				request.setAttribute("mainPage", "admin/visitorRecordSave.jsp");
+				request.setAttribute("mainPage", "admin/dormRoomSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			}
 		} catch (Exception e) {
@@ -182,7 +177,7 @@ public class VisitorRecordServlet extends HttpServlet{
 	}
 
 	//跳转新增访问记录
-	private void visitorRecordPreSave(HttpServletRequest request,
+	private void dormRoomPreSave(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		String id = request.getParameter("id");
@@ -192,8 +187,8 @@ public class VisitorRecordServlet extends HttpServlet{
 			con = dbUtil.getCon();
 			request.setAttribute("dormBuildList", studentDao.dormBuildList(con));
 			if (StringUtil.isNotEmpty(id)) {
-				VisitorRecord visitorRecord = visitorRecordDao.visitorRecordShow(con, id);
-				request.setAttribute("visitorRecord", visitorRecord);
+				DormRoom dormRoom = dormRoomDao.dormRoomShow(con, id);
+				request.setAttribute("dormRoom", dormRoom);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -205,10 +200,10 @@ public class VisitorRecordServlet extends HttpServlet{
 			}
 		}
 		if("admin".equals((String)currentUserType)) {
-			request.setAttribute("mainPage", "admin/visitorRecordSave.jsp");
+			request.setAttribute("mainPage", "admin/dormRoomSave.jsp");
 			request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 		}else if("dormManager".equals((String)currentUserType)) {
-			request.setAttribute("mainPage", "dormManager/visitorRecordSave.jsp");
+			request.setAttribute("mainPage", "dormManager/dormRoomSave.jsp");
 			request.getRequestDispatcher("mainManager.jsp").forward(request, response);
 		}
 		
@@ -217,11 +212,11 @@ public class VisitorRecordServlet extends HttpServlet{
 	private String genPagation(int totalNum, int currentPage, int pageSize){
 		int totalPage = totalNum%pageSize==0?totalNum/pageSize:totalNum/pageSize+1;
 		StringBuffer pageCode = new StringBuffer();
-		pageCode.append("<li><a href='visitorRecord?page=1'>首页</a></li>");
+		pageCode.append("<li><a href='dormRoom?page=1'>首页</a></li>");
 		if(currentPage==1) {
 			pageCode.append("<li class='disabled'><a href='#'><</a></li>");
 		}else {
-			pageCode.append("<li><a href='visitorRecord?page="+(currentPage-1)+"'><</a></li>");
+			pageCode.append("<li><a href='dormRoom?page="+(currentPage-1)+"'><</a></li>");
 		}
 		for(int i=currentPage-2;i<=currentPage+2;i++) {
 			if(i<1||i>totalPage) {
@@ -230,15 +225,15 @@ public class VisitorRecordServlet extends HttpServlet{
 			if(i==currentPage) {
 				pageCode.append("<li class='active'><a href='#'>"+i+"</a></li>");
 			} else {
-				pageCode.append("<li><a href='visitorRecord?page="+i+"'>"+i+"</a></li>");
+				pageCode.append("<li><a href='dormRoom?page="+i+"'>"+i+"</a></li>");
 			}
 		}
 		if(currentPage==totalPage) {
 			pageCode.append("<li class='disabled'><a href='#'>></a></li>");
 		} else {
-			pageCode.append("<li><a href='visitorRecord?page="+(currentPage+1)+"'>></a></li>");
+			pageCode.append("<li><a href='dormRoom?page="+(currentPage+1)+"'>></a></li>");
 		}
-		pageCode.append("<li><a href='visitorRecord?page="+totalPage+"'>末页</a></li>");
+		pageCode.append("<li><a href='dormRoom?page="+totalPage+"'>末页</a></li>");
 		return pageCode.toString();
 	}
 	

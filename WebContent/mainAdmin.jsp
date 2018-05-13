@@ -93,6 +93,7 @@
 					<li><a href="student?action=list"><i class="icon-chevron-right"></i>学生管理</a></li>
 					<li><a href="dormManager?action=list"><i class="icon-chevron-right"></i>宿舍管理员管理</a></li>
 					<li><a href="dormBuild?action=list"><i class="icon-chevron-right"></i>宿舍楼管理</a></li>
+					<li><a href="dormRoom?action=list"><i class="icon-chevron-right"></i>寝室管理</a></li>
 					<!-- <li><a href="record?action=list"><i class="icon-chevron-right"></i>缺勤记录</a></li> -->
 					<li><a href="storageGoods?action=list"><i class="icon-chevron-right"></i>物品寄放管理</a></li>
 					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>外来访问记录</a></li>
