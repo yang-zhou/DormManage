@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-05-12 11:39:29
+Date: 2018-05-13 22:38:15
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -80,15 +80,16 @@ CREATE TABLE `t_dormbuild` (
   `dormBuildName` varchar(20) DEFAULT NULL,
   `dormBuildDetail` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`dormBuildId`)
-) ENGINE=InnoDB AUTO_INCREMENT=556 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=558 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dormbuild
 -- ----------------------------
 INSERT INTO `t_dormbuild` VALUES ('1', '明知居', '信息介绍');
-INSERT INTO `t_dormbuild` VALUES ('4', '2栋', '二栋信息介绍');
-INSERT INTO `t_dormbuild` VALUES ('6', '4栋', '四栋信息介绍');
+INSERT INTO `t_dormbuild` VALUES ('6', '德语居', '德语居信息介绍');
 INSERT INTO `t_dormbuild` VALUES ('13', '芳华苑', '女子专用宿舍楼');
+INSERT INTO `t_dormbuild` VALUES ('556', '知行苑', '知行苑');
+INSERT INTO `t_dormbuild` VALUES ('557', '知德苑', '知行苑');
 
 -- ----------------------------
 -- Table structure for t_dormmanager
@@ -103,16 +104,39 @@ CREATE TABLE `t_dormmanager` (
   `sex` varchar(20) DEFAULT NULL,
   `tel` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`dormManId`)
-) ENGINE=InnoDB AUTO_INCREMENT=45253 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=45254 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dormmanager
 -- ----------------------------
-INSERT INTO `t_dormmanager` VALUES ('52', '测试账号1', '123456', '4', '测试1', '男', '18245697896');
+INSERT INTO `t_dormmanager` VALUES ('52', '测试账号1', '123456', '0', '测试1', '男', '18245697896');
 INSERT INTO `t_dormmanager` VALUES ('3244', '测试账号', '123', '1', '测试账号', '女', '123');
 INSERT INTO `t_dormmanager` VALUES ('5252', '测试账号3', '123', '13', '测试3', '男', '18245627896');
 INSERT INTO `t_dormmanager` VALUES ('8242', '123456', '123456', '6', 'beyond', '男', '18212346589');
 INSERT INTO `t_dormmanager` VALUES ('45252', '测试账号2', '123', '0', '测试2', '男', '123');
+
+-- ----------------------------
+-- Table structure for t_dorm_room
+-- ----------------------------
+DROP TABLE IF EXISTS `t_dorm_room`;
+CREATE TABLE `t_dorm_room` (
+  `id` bigint(255) NOT NULL AUTO_INCREMENT,
+  `dorm_build_id` varchar(255) DEFAULT NULL,
+  `dorm_build_name` varchar(255) DEFAULT NULL,
+  `dorm_room_number` varchar(255) DEFAULT NULL,
+  `dorm_room_name` varchar(255) DEFAULT NULL,
+  `dorm_room_tel` varchar(255) DEFAULT NULL,
+  `dorm_room_max` tinyint(2) DEFAULT NULL,
+  `remark` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_dorm_room
+-- ----------------------------
+INSERT INTO `t_dorm_room` VALUES ('1', '6', '德语居', '6113', '小居室', '123', null, '暧昧');
+INSERT INTO `t_dorm_room` VALUES ('2', '6', '德语居', '6112', '小居室隔壁', '123', null, '上进');
+INSERT INTO `t_dorm_room` VALUES ('6', '1', '明知居', '6245', '测试寝室', '15612434951', null, '测试寝室');
 
 -- ----------------------------
 -- Table structure for t_record
@@ -161,11 +185,6 @@ CREATE TABLE `t_student` (
 INSERT INTO `t_student` VALUES ('2', '002', '123', '李四', '4', '120', '男', '32', null, null, null, null);
 INSERT INTO `t_student` VALUES ('3', '003', '123', '王五', '5', '201', '男', '2', null, null, null, null);
 INSERT INTO `t_student` VALUES ('9', '007', '123', '测试1', '1', '221', '男', '123', null, null, null, null);
-INSERT INTO `t_student` VALUES ('28', '001', '123', '测试1', '1', '111', '男', '123', null, null, null, null);
-INSERT INTO `t_student` VALUES ('29', '008', '123', '测试3', '6', '123', '男', '123', null, null, null, null);
-INSERT INTO `t_student` VALUES ('30', '009', '123', '测试4', '5', '123', '男', '123', null, null, null, null);
-INSERT INTO `t_student` VALUES ('31', '009', '123', '测试4', '5', '123', '男', '123', null, null, null, null);
-INSERT INTO `t_student` VALUES ('32', '009', '123', '测试4', '5', '123', '男', '123', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for t_visitor
@@ -185,7 +204,7 @@ CREATE TABLE `t_visitor` (
   `checked_id` varchar(255) DEFAULT NULL COMMENT '登记者（宿舍管理员）',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_visitor
