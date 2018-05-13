@@ -25,11 +25,11 @@ $(document).ready(function(){
 	$("#DataTables_Table_0_wrapper .row-fluid").remove();
 	laydate.render({
 		elem: '#startDate'
-		,type: 'date'
+		,type: 'datetime'
 	});
 	laydate.render({
 		elem: '#endDate'
-		,type: 'date'
+		,type: 'datetime'
 	});
 });
 
@@ -47,7 +47,7 @@ window.onload = function(){
 		<div class="data_list_title">
 			外来访问记录
 		</div>
-		<form name="myForm" class="form-search" method="post" action="record?action=search" style="padding-bottom: 0px">
+		<form name="myForm" class="form-search" method="post" action="visitorRecord?action=search" style="padding-bottom: 0px">
 				<button class="btn btn-success" type="button" style="margin-right: 50px;" onclick="javascript:window.location='visitorRecord?action=preSave'">添加</button>
 				<span class="data_search">
 					<%-- <span class="controls input-append date form_date" style="margin-right: 10px" data-date="" data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
@@ -70,10 +70,9 @@ window.onload = function(){
 					</select>
 					<select id="searchType" name="searchType" style="width: 80px;">
 					<option value="name">姓名</option>
-					<option value="number" ${searchType eq "number"?'selected':'' }>学号</option>
-					<option value="dorm" ${searchType eq "dorm"?'selected':'' }>寝室</option>
+					<option value="dormRoom" ${searchType eq "dormRoom"?'selected':'' }>寝室</option>
 					</select>
-					&nbsp;<input id="s_studentText" name="s_studentText" type="text"  style="width:120px;height: 30px;" class="input-medium search-query" value="${s_studentText }">
+					&nbsp;<input id="s_visitorRecordText" name="s_visitorRecordText" type="text"  style="width:120px;height: 30px;" class="input-medium search-query" value="${s_visitorRecordText }">
 					&nbsp;<button type="submit" class="btn btn-info" onkeydown="if(event.keyCode==13) myForm.submit()">搜索</button>
 				</span>
 		</form>

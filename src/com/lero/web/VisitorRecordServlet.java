@@ -47,8 +47,14 @@ public class VisitorRecordServlet extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		Object currentUserType = session.getAttribute("currentUserType");
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String s_visitorRecordText = request.getParameter("s_visitorRecordText");
+		String dormBuildId = request.getParameter("buildToSelect");
+		String searchType = request.getParameter("searchType");
 		String page = request.getParameter("page");
 		String action = request.getParameter("action");
+		VisitorRecord visitorRecord = new VisitorRecord();
 		Connection conn = null;
 		if("preSave".equals(action)) {
 			visitorRecordPreSave(request, response);
@@ -58,22 +64,47 @@ public class VisitorRecordServlet extends HttpServlet{
 			return;
 		} else if("list".equals(action)) {
 		
+		} else if("search".equals(action)) {
+			if(StringUtil.isNotEmpty(s_visitorRecordText)) {
+				if("name".equals(searchType)) {
+					visitorRecord.setVisName(s_visitorRecordText);
+				} else if("dormRoom".equals(searchType)) {
+					visitorRecord.setVisDormBuildRoom(s_visitorRecordText);
+				}
+				session.setAttribute("s_visitorRecordText", s_visitorRecordText);
+				session.setAttribute("searchType", searchType);
+			} else {
+				session.removeAttribute("s_visitorRecordText");
+				session.removeAttribute("searchType");
+			}
+			if(StringUtil.isNotEmpty(dormBuildId)) {
+				visitorRecord.setVisDormBuild(dormBuildId);
+				session.setAttribute("buildToSelect", dormBuildId);
+			}else {
+				session.removeAttribute("buildToSelect");
+			}
+			if(StringUtil.isNotEmpty(startDate)) {
+				visitorRecord.setVisInTime(startDate);
+			}
+			if(StringUtil.isNotEmpty(endDate)) {
+				visitorRecord.setVisOutTime(endDate);
+			}
 		}	
 		if(StringUtil.isEmpty(page)) {
 			page="1";
 		}
-		VisitorRecord visitorRecord = new VisitorRecord();
 		PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(PropertiesUtil.getValue("pageSize")));
 		request.setAttribute("pageSize", pageBean.getPageSize());
 		request.setAttribute("page", pageBean.getPage());
 		try {
 			conn = dbUtil.getCon();
 			if("admin".equals((String)currentUserType)) {
-				List<VisitorRecord> visitorRecordList = visitorRecordDao.listVisitorRecord(conn, pageBean);
+				List<VisitorRecord> visitorRecordList = visitorRecordDao.listVisitorRecord(conn, pageBean, visitorRecord);
 				int total=visitorRecordDao.visitorRecordCount(conn, visitorRecord);
 				String pageCode = this.genPagation(total, Integer.parseInt(page), Integer.parseInt(PropertiesUtil.getValue("pageSize")));
 				request.setAttribute("pageCode", pageCode);
 				request.setAttribute("visitorRecordList", visitorRecordList);
+				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
 				request.setAttribute("mainPage", "admin/visitorRecord.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			} else if("dormManager".equals((String)currentUserType)) {
@@ -83,6 +114,7 @@ public class VisitorRecordServlet extends HttpServlet{
 				List<VisitorRecord> visitorRecordList = visitorRecordDao.visitorRecordWithBuild(conn, visitorRecord, buildId);
 				request.setAttribute("dormBuildName", buildName);
 				request.setAttribute("visitorRecordList", visitorRecordList);
+				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
 				request.setAttribute("mainPage", "dormManager/visitorRecord.jsp");
 				request.getRequestDispatcher("mainManager.jsp").forward(request, response);
 			}
