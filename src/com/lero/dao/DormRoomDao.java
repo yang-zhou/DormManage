@@ -15,22 +15,29 @@ import com.lero.model.Student;
 import com.lero.util.StringUtil;
 
 public class DormRoomDao {
-	public List<DormRoom> dormBuildList(Connection con, PageBean pageBean)throws Exception {
+	public List<DormRoom> dormRoomList(Connection con, PageBean pageBean, DormRoom dormRoom)throws Exception {
 		List<DormRoom> dormRoomList = new ArrayList<DormRoom>();
 		StringBuffer sb = new StringBuffer("select * from t_dorm_room t1");
-		PreparedStatement pstmt = con.prepareStatement(sb.toString());
+		if(StringUtil.isNotEmpty(dormRoom.getDormBuildId())) {
+			sb.append(" and t1.dorm_build_id="+dormRoom.getDormBuildId());
+		}
+		if(pageBean != null) {
+			sb.append(" limit "+pageBean.getStart()+","+pageBean.getPageSize());
+		}
+		PreparedStatement pstmt = con.prepareStatement(sb.toString().replaceFirst("and", "where"));
+		System.out.println("查询语句：" + sb.toString().replaceFirst("and", "where"));
 		ResultSet rs = pstmt.executeQuery();
 		while(rs.next()) {
-			DormRoom dormRoom=new DormRoom();
-			dormRoom.setId(rs.getString("id"));
-			dormRoom.setDormBuildId(rs.getString("dorm_build_id"));
-			dormRoom.setDormBuildName(rs.getString("dorm_build_name"));
-			dormRoom.setDormRoomNumber(rs.getString("dorm_room_number"));
-			dormRoom.setDormRoomName(rs.getString("dorm_room_name"));
-			dormRoom.setDormRoomTel(rs.getString("dorm_room_tel"));
-			dormRoom.setDormRoomMax(rs.getString("dorm_room_max"));
-			dormRoom.setRemark(rs.getString("remark"));
-			dormRoomList.add(dormRoom);
+			DormRoom tempDormRoom=new DormRoom();
+			tempDormRoom.setId(rs.getString("id"));
+			tempDormRoom.setDormBuildId(rs.getString("dorm_build_id"));
+			tempDormRoom.setDormBuildName(rs.getString("dorm_build_name"));
+			tempDormRoom.setDormRoomNumber(rs.getString("dorm_room_number"));
+			tempDormRoom.setDormRoomName(rs.getString("dorm_room_name"));
+			tempDormRoom.setDormRoomTel(rs.getString("dorm_room_tel"));
+			tempDormRoom.setDormRoomMax(rs.getString("dorm_room_max"));
+			tempDormRoom.setRemark(rs.getString("remark"));
+			dormRoomList.add(tempDormRoom);
 		}
 		return dormRoomList;
 	}
@@ -97,6 +104,27 @@ public class DormRoomDao {
 			dormRoom.setRemark(rs.getString("remark"));
 		}
 		return dormRoom;
+	}
+
+	public List<DormRoom> visitorRecordWithBuild(Connection conn, DormRoom dormRoom, int buildId) throws SQLException {
+		List<DormRoom> dormRoomList = new ArrayList<DormRoom>();
+		StringBuffer sb = new StringBuffer("select * from t_dorm_room t1");
+		sb.append(" and t1.dorm_build_id="+buildId);
+		PreparedStatement pstmt = conn.prepareStatement(sb.toString().replaceFirst("and", "where"));
+		ResultSet rs = pstmt.executeQuery();
+		while(rs.next()) {
+			DormRoom tempDormRoom=new DormRoom();
+			tempDormRoom.setId(rs.getString("id"));
+			tempDormRoom.setDormBuildId(rs.getString("dorm_build_id"));
+			tempDormRoom.setDormBuildName(rs.getString("dorm_build_name"));
+			tempDormRoom.setDormRoomNumber(rs.getString("dorm_room_number"));
+			tempDormRoom.setDormRoomName(rs.getString("dorm_room_name"));
+			tempDormRoom.setDormRoomTel(rs.getString("dorm_room_tel"));
+			tempDormRoom.setDormRoomMax(rs.getString("dorm_room_max"));
+			tempDormRoom.setRemark(rs.getString("remark"));
+			dormRoomList.add(tempDormRoom);
+		}
+		return dormRoomList;
 	}
 	
 	/*public int dormRoomUpdate(Connection con, DormRoom dormRoom)throws Exception {

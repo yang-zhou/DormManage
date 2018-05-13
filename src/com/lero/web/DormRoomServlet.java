@@ -48,7 +48,10 @@ public class DormRoomServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		response.setCharacterEncoding("UTF-8");    
+		response.setContentType("application/json; charset=utf-8");
 		HttpSession session = request.getSession();
+		
 		Object currentUserType = session.getAttribute("currentUserType");
 		String s_dormRoomText = request.getParameter("s_dormRoomText");
 		String dormBuildId = request.getParameter("buildToSelect");
@@ -77,13 +80,20 @@ public class DormRoomServlet extends HttpServlet{
 			} else {
 				session.removeAttribute("s_visitorRecordText");
 				session.removeAttribute("searchType");
-			}
+			}*/
 			if(StringUtil.isNotEmpty(dormBuildId)) {
-				visitorRecord.setVisDormBuild(dormBuildId);
+				dormRoom.setDormBuildId(dormBuildId);
 				session.setAttribute("buildToSelect", dormBuildId);
 			}else {
 				session.removeAttribute("buildToSelect");
-			}*/
+			}
+		} else if("nopagesearch".equals(action)) {
+			if(StringUtil.isNotEmpty(dormBuildId)) {
+				dormRoom.setDormBuildId(dormBuildId);
+				session.setAttribute("buildToSelect", dormBuildId);
+			}else {
+				session.removeAttribute("buildToSelect");
+			}
 		}	
 		if(StringUtil.isEmpty(page)) {
 			page="1";
@@ -94,24 +104,34 @@ public class DormRoomServlet extends HttpServlet{
 		try {
 			conn = dbUtil.getCon();
 			if("admin".equals((String)currentUserType)) {
-				List<DormRoom> dormRoomList = dormRoomDao.dormBuildList(conn, pageBean);
+				List<DormRoom> dormRoomList = dormRoomDao.dormRoomList(conn, pageBean,dormRoom);
 				int total=dormRoomDao.dormRoomCount(conn, dormRoom);
 				String pageCode = this.genPagation(total, Integer.parseInt(page), Integer.parseInt(PropertiesUtil.getValue("pageSize")));
 				request.setAttribute("pageCode", pageCode);
 				request.setAttribute("dormRoomList", dormRoomList);
 				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
 				request.setAttribute("mainPage", "admin/dormRoom.jsp");
-				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
+				if("nopagesearch".equals(action)) {  
+					PrintWriter writer = response.getWriter();
+					writer.write(new Gson().toJson(dormRoomList));
+				}else if("search".equals(action) || "list".equals(action)) {
+					request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
+				}
 			} else if("dormManager".equals((String)currentUserType)) {
 				DormManager manager = (DormManager)(session.getAttribute("currentUser"));
 				int buildId = manager.getDormBuildId();
 				String buildName = DormBuildDao.dormBuildName(conn, buildId);
-				//List<VisitorRecord> visitorRecordList = visitorRecordDao.visitorRecordWithBuild(conn, visitorRecord, buildId);
+				List<DormRoom> dormRoomList = dormRoomDao.visitorRecordWithBuild(conn, dormRoom, buildId);
 				request.setAttribute("dormBuildName", buildName);
-				//request.setAttribute("visitorRecordList", visitorRecordList);
+				request.setAttribute("dormRoomList", dormRoomList);
 				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
 				request.setAttribute("mainPage", "dormManager/dormRoom.jsp");
-				request.getRequestDispatcher("mainManager.jsp").forward(request, response);
+				if("nopagesearch".equals(action)) {  
+					PrintWriter writer = response.getWriter();
+					writer.write(new Gson().toJson(dormRoomList));
+				}else if("search".equals(action) || "list".equals(action)) {
+					request.getRequestDispatcher("mainManager.jsp").forward(request, response);
+				}
 			}
 			
 			

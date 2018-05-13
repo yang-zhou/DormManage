@@ -20,7 +20,34 @@
 		}
 		return true;
 	}
-	
+	function showDormRooms() {
+		var $select = $("#dormRoom");
+		var dormBuildId = $("#dormBuildId").val();
+		var param = {};
+		param.buildToSelect = dormBuildId;
+		if(dormBuildId){
+			$.ajax({
+				url: "http://localhost:8081/DormManage/dormRoom?action=nopagesearch",
+				type: 'POST',
+				dataType: "json",			  
+				data: param,
+				success: function(data){
+					//var firstOption = $("#dormRoom").children()[0];
+					if(data){
+						var options = "";
+						$.each(data, function(i,item){
+							options += "<option value= " + item.dormRoomNumber + ">"+ item.dormRoomNumber +"</option>";
+						});
+						if($select[0]){
+							$select.empty();
+							$select.append("<option value=''>请选择...</option>");
+							$select.append(options);
+						}
+					}
+				}
+			});
+		}
+	}
 	$(document).ready(function(){
 		$("ul li:eq(1)").addClass("active");
 		$("ul li:eq(1)").css("background-color","lightblue");
@@ -70,7 +97,8 @@
 						<tr>
 							<td><font color="red">*</font>宿舍楼：</td>
 							<td>
-								<select id="dormBuildId" name="dormBuildId" style="width: 90px;">
+								<select onchange="showDormRooms()" id="dormBuildId" name="dormBuildId" style="width: 90px;">
+									<option value="">请选择...</option>
 									<c:forEach var="dormBuild" items="${dormBuildList }">
 										<option value="${dormBuild.dormBuildId }" ${student.dormBuildId==dormBuild.dormBuildId?'selected':'' }>${dormBuild.dormBuildName }</option>
 									</c:forEach>
@@ -80,6 +108,14 @@
 						<tr>
 							<td><font color="red">*</font>寝室：</td>
 							<td><input type="text" id="dormName"  name="dormName" value="${student.dormName }"  style="margin-top:5px;height:30px;" /></td>
+						</tr>
+						<tr>
+							<td><font color="red">*</font>id：</td>
+							<td>
+								<select id="dormRoom" name="dormRoom" style="width: 90px;">
+									<option>请选择...</option>
+								</select>
+							</td>
 						</tr>
 						<tr>
 							<td><font color="red">*</font>联系电话：</td>
