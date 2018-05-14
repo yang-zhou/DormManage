@@ -7,7 +7,7 @@
 $(document).ready(function(){
 	$("ul li:eq(1)").addClass("active");
 	$("ul li:eq(1)").css("background-color","lightblue");
-	$('.datatable').dataTable( {        				
+	/* $('.datatable').dataTable( {        				
 		 "oLanguage": {
 				"sUrl": "/DormManage/media/zh_CN.json"
 		 },
@@ -21,7 +21,7 @@ $(document).ready(function(){
 			null,
 			{ "asSorting": [ ] },
 		]
-	});
+	}); */
 });
 
 window.onload = function(){ 
@@ -59,6 +59,7 @@ window.onload = function(){
 			<table class="table table-striped table-bordered table-hover datatable">
 				<thead>
 					<tr>
+					<th>编号</th>
 					<th>学号</th>
 					<th>姓名</th>
 					<th>性别</th>
@@ -71,7 +72,7 @@ window.onload = function(){
 				<tbody>
 				<c:forEach  varStatus="i" var="student" items="${studentList }">
 					<tr>
-						<%-- <td>${i.count+(page-1)*pageSize }</td> --%>
+						<td>${i.count+(page-1)*pageSize }</td>
 						<td>${student.userName }</td>
 						<td>${student.name }</td>
 						<td>${student.sex }</td>
@@ -79,7 +80,7 @@ window.onload = function(){
 						<td>${student.dormName }</td>
 						<td>${student.tel }</td>
 						<td>
-							<button class="btn btn-mini btn-success" type="button" onclick="javascript:window.location='record?action=preSave&studentNumber=${student.userName }'">添加缺勤记录</button>
+							<button class="btn btn-mini btn-warning" type="button" onclick="studentDelete(${student.studentId })">注销</button></td>
 						</td>
 					</tr>
 				</c:forEach>

@@ -82,7 +82,7 @@
 <div class="container-fluid" style="padding-right: 0px;padding-left: 0px;">
 	<div style="height: 100px;background-image: url('source/images/bg.jpg')">
 		<div align="left" style="width: 80%;height:100px ;float: left;padding-top: 40px;padding-left: 30px;" ><font color="white" size="6" >宿舍管理系统</font></div>
-		<div style="padding-top: 70px;padding-right: 20px;">当前用户：&nbsp;<font color="red" >${currentUser.userName }</font></div>
+		<div style="padding-top: 70px;padding-right: 20px;"><font size="4px" color="aliceblue" >当前用户：&nbsp;${currentUser.userName }</font></div>
 	</div>
 </div>
 	<div class="container-fluid">
@@ -91,9 +91,10 @@
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li><a href="blank"><i class="icon-chevron-right"></i>首页</a></li>
 					<li><a href="student?action=list"><i class="icon-chevron-right"></i>学生管理</a></li>
-					<li><a href="dormManager?action=list"><i class="icon-chevron-right"></i>宿舍管理员管理</a></li>
+					<li><a href="dormManager?action=list"><i class="icon-chevron-right"></i>宿管员管理</a></li>
 					<li><a href="dormBuild?action=list"><i class="icon-chevron-right"></i>宿舍楼管理</a></li>
 					<li><a href="dormRoom?action=list"><i class="icon-chevron-right"></i>寝室管理</a></li>
+					<li><a href="dormRoomRating?action=list"><i class="icon-chevron-right"></i>寝室评比</a></li>
 					<!-- <li><a href="record?action=list"><i class="icon-chevron-right"></i>缺勤记录</a></li> -->
 					<li><a href="storageGoods?action=list"><i class="icon-chevron-right"></i>物品寄放管理</a></li>
 					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>外来访问记录</a></li>

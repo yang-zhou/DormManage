@@ -82,7 +82,7 @@
 <div class="container-fluid" style="padding-right: 0px;padding-left: 0px;">
 	<div style="height: 100px;background-image: url('source/images/bg.jpg')">
 		<div align="left" style="width: 80%;height:100px ;float: left;padding-top: 40px;padding-left: 30px;" ><font color="white" size="6" >宿舍管理系统</font></div>
-		<div style="padding-top: 70px;padding-right: 20px;">当前用户：&nbsp;<font color="red" >${currentUser.userName }</font></div>
+		<div style="padding-top: 70px;padding-right: 20px;"><font size="4px" color="aliceblue" >当前用户：&nbsp;${currentUser.userName }</font></div>
 	</div>
 </div>
 	<div class="container-fluid">
@@ -90,8 +90,10 @@
 			<div class="col-sm-2 bs-docs-sidebar" >
 				<ul class="nav nav-list bs-docs-sidenav">
 					<li><a href="blank"><i class="icon-chevron-right"></i>首页</a></li>
-					<li><a href="student?action=list"><i class="icon-chevron-right"></i>学生查看</a></li>
+					<li><a href="student?action=list"><i class="icon-chevron-right"></i>学生管理</a></li>
+					<li><a href="dormRoom?action=list"><i class="icon-chevron-right"></i>寝室管理</a></li>
 					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>访问记录</a></li>
+					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>物品存放</a></li>
 					<!-- <li><a href="record?action=list"><i class="icon-chevron-right"></i>缺勤记录</a></li> -->
 					<li><a href="password?action=preChange"><i class="icon-chevron-right"></i>修改密码</a></li>
 					<li><a href="login.jsp"><i class="icon-chevron-right"></i>退出系统</a></li>

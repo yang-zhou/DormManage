@@ -17,8 +17,8 @@
 	}
 	
 	$(document).ready(function(){
-		$("ul li:eq(2)").addClass("active");
-		$("ul li:eq(2)").css("background-color","lightblue");
+		$("ul li:eq(3)").addClass("active");
+		$("ul li:eq(3)").css("background-color","lightblue");
 	});
 </script>
 <div class="data_list">

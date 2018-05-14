@@ -105,6 +105,16 @@
   	<url-pattern>/dormRoom</url-pattern>
   </servlet-mapping>
   
+   <servlet>
+  	<servlet-name>dormRoomRatingServlet</servlet-name>
+  	<servlet-class>com.lero.web.DormRoomRatingServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>dormRoomRatingServlet</servlet-name>
+  	<url-pattern>/dormRoomRating</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
   	<servlet-name>storageGoodsServlet</servlet-name>
   	<servlet-class>com.lero.web.StorageGoodsServlet</servlet-class>

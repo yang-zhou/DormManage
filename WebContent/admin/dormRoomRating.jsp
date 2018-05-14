@@ -4,8 +4,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("ul li:eq(3)").addClass("active");
-	$("ul li:eq(3)").css("background-color","lightblue");
+	$("ul li:eq(5)").addClass("active");
+	$("ul li:eq(5)").css("background-color","lightblue");
 	/* $('.datatable').dataTable( {        				
 		 "oLanguage": {
 				"sUrl": "/DormManage/media/zh_CN.json"
@@ -45,36 +45,34 @@ window.onload = function(){
 
 <div class="data_list">
 		<div class="data_list_title">
-			外来访问记录
+			寝室评比
 		</div>
 		<form name="myForm" class="form-search" method="post" action="visitorRecord?action=search" style="padding-bottom: 0px">
-				<button class="btn btn-success" type="button" style="margin-right: 50px;" onclick="javascript:window.location='visitorRecord?action=preSave'">添加</button>
+				<button class="btn btn-success" type="button" style="margin-right: 50px;" onclick="javascript:window.location='dormRoomRating?action=preSave'">添加</button>
 				<span class="data_search">
-					<span><font style="font-family: '黑体'; font-style: 'bold'; font-size: 20px" color="blue">${dormBuildName }&nbsp;&nbsp;</font></span>
 					<%-- <span class="controls input-append date form_date" style="margin-right: 10px" data-date="" data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
                     	<input id="startDate" name="startDate" style="width:120px;height: 30px;" placeholder="起始日期" type="text" value="${startDate }" readonly >
                     	<span class="add-on"><i class="icon-remove"></i></span>
 						<span class="add-on"><i class="icon-th"></i></span>
                		</span> --%>
-               		<input id="startDate" name="startDate" style="width:120px;height: 30px;" placeholder="起始日期" type="text" value="${startDate }" >
+               		<input id="startDate" name="startDate" style="width:120px;height: 30px;" placeholder="起始日期" type="text" value="${startDate }" readonly >
 					<%-- <span class="controls input-append date form_date" style="margin-right: 10px" data-date="" data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
                     	<input id="endDate" name="endDate" style="width:120px;height: 30px;" placeholder="终止日期" type="text" value="${endDate }" readonly>
                     	<span class="add-on"><i class="icon-remove"></i></span>
 						<span class="add-on"><i class="icon-th"></i></span>
                		 </span> --%>
-               		<input id="endDate" name="endDate" style="width:120px;height: 30px;" placeholder="终止日期" type="text" value="${endDate }">
-					<%-- <select id="buildToSelect" name="buildToSelect" style="width: 110px;">
+               		<input id="endDate" name="endDate" style="width:120px;height: 30px;" placeholder="终止日期" type="text" value="${endDate }" readonly>
+					<select id="buildToSelect" name="buildToSelect" style="width: 110px;">
 					<option value="">全部宿舍楼</option>
 					<c:forEach var="dormBuild" items="${dormBuildList }">
 						<option value="${dormBuild.dormBuildId }" ${buildToSelect==dormBuild.dormBuildId?'selected':'' }>${dormBuild.dormBuildName }</option>
 					</c:forEach>
-					</select> --%>
+					</select>
 					<select id="searchType" name="searchType" style="width: 80px;">
 					<option value="name">姓名</option>
-					<option value="number" ${searchType eq "number"?'selected':'' }>学号</option>
-					<option value="dorm" ${searchType eq "dorm"?'selected':'' }>寝室</option>
+					<option value="dormRoom" ${searchType eq "dormRoom"?'selected':'' }>寝室</option>
 					</select>
-					&nbsp;<input id="s_studentText" name="s_studentText" type="text"  style="width:120px;height: 30px;" class="input-medium search-query" value="${s_studentText }">
+					&nbsp;<input id="s_visitorRecordText" name="s_visitorRecordText" type="text"  style="width:120px;height: 30px;" class="input-medium search-query" value="${s_visitorRecordText }">
 					&nbsp;<button type="submit" class="btn btn-info" onkeydown="if(event.keyCode==13) myForm.submit()">搜索</button>
 				</span>
 		</form>
@@ -83,33 +81,29 @@ window.onload = function(){
 				<thead>
 					<tr>
 					<th>编号</th>
-					<th>姓名</th>
-					<th>身份证号</th>
-					<th>性别</th>
-					<th>电话</th>
+					<th>dorm_build_id</th>
 					<th>宿舍楼</th>
-					<th>寝室</th>
-					<th>访问时间</th>
-					<th>出寝时间</th>
-					<th>登记人</th>
+					<th>寝室号</th>
+					<th>score_clean</th>
+					<th>score_culture</th>
+					<th>score_obey</th>
+					<th>ratingDate</th>
 					<th>备注</th>
 					<th>操作</th>
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach  varStatus="i" var="visitorRecord" items="${visitorRecordList }">
+				<c:forEach  varStatus="i" var="dormRoomRating" items="${DormRoomRatingList }">
 					<tr>
 						<td>${i.count+(page-1)*pageSize }</td>
-						<td>${visitorRecord.visName }</td>
-						<td>${visitorRecord.visIdCard }</td>
-						<td>${visitorRecord.visSex == '1' ? '男' : '女'}</td>
-						<td>${visitorRecord.visPhone }</td>
-						<td>${visitorRecord.visDormBuildName }</td>
-						<td>${visitorRecord.visDormBuildRoom }</td>
-						<td>${visitorRecord.visInTime }</td>
-						<td>${visitorRecord.visOutTime }</td>
-						<td>${visitorRecord.checkedId }</td>
-						<td>${visitorRecord.remark }</td>
+						<td>${dormRoomRating.dormBuildId }</td>
+						<td>${dormRoomRating.dormBuildName }</td>
+						<td>${dormRoomRating.dormRoomNumber }</td>
+						<td>${dormRoomRating.scoreClean }</td>
+						<td>${dormRoomRating.scoreCulture }</td>
+						<td>${dormRoomRating.scoreObey }</td>
+						<td>${dormRoomRating.ratingDate }</td>
+						<td>${dormRoomRating.remark }</td>
 						<td>
 							<button class="btn btn-mini btn-danger" type="button" onclick="recordDelete(${visitorRecord.id })">删除</button></td>
 					</tr>
