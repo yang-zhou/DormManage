@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
 <script type="text/javascript">
 	function checkForm(){
 		var dormBuildId=$("#dormBuildId") ? $("#dormBuildId").val() : "";
@@ -22,7 +23,7 @@
 		param.buildToSelect = dormBuildId;
 		if(dormBuildId){
 			$.ajax({
-				url: "http://localhost:8081/DormManage/dormRoom?action=nopagesearch",
+				url: "/DormManage/dormRoom?action=nopagesearch",
 				type: 'POST',
 				dataType: "json",			  
 				data: param,
@@ -44,8 +45,8 @@
 		}
 	}
 	$(document).ready(function(){
-		$("ul li:eq(6)").addClass("active");
-		$("ul li:eq(6)").css("background-color","lightblue");
+		$("ul li:eq(5)").addClass("active");
+		$("ul li:eq(5)").css("background-color","lightblue");
 		laydate.render({
 			elem: '#visInTime'
 			,type: 'datetime'

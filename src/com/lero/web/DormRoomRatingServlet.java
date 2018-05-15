@@ -50,7 +50,8 @@ public class DormRoomRatingServlet extends HttpServlet{
 		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();
 		Object currentUserType = session.getAttribute("currentUserType");
-		String s_visitorRecordText = request.getParameter("s_visitorRecordText");
+		String ratingDate = request.getParameter("ratingDate");
+		String s_dormRoomRatingText = request.getParameter("s_dormRoomRatingText");
 		String dormBuildId = request.getParameter("buildToSelect");
 		String searchType = request.getParameter("searchType");
 		String page = request.getParameter("page");
@@ -64,26 +65,30 @@ public class DormRoomRatingServlet extends HttpServlet{
 		} else if("save".equals(action)){
 			dormRoomRatingSave(request, response);
 			return;
-		} else if("list".equals(action)) {
+		} else if("delete".equals(action)){
+		    dormRoomRatingDelete(request, response);
+            return;
+        }else if("list".equals(action)) {
 		
 		} else if("search".equals(action)) {
-			if(StringUtil.isNotEmpty(s_visitorRecordText)) {
-				if("name".equals(searchType)) {
-					visitorRecord.setVisName(s_visitorRecordText);
-				} else if("dormRoom".equals(searchType)) {
-					visitorRecord.setVisDormBuildRoom(s_visitorRecordText);
+			if(StringUtil.isNotEmpty(s_dormRoomRatingText)) {
+				if("dormRoom".equals(searchType)) {
+					dormRoomRating.setDormRoomNumber(s_dormRoomRatingText);
 				}
-				session.setAttribute("s_visitorRecordText", s_visitorRecordText);
+				session.setAttribute("s_dormRoomRatingText", s_dormRoomRatingText);
 				session.setAttribute("searchType", searchType);
 			} else {
-				session.removeAttribute("s_visitorRecordText");
+				session.removeAttribute("s_dormRoomRatingText");
 				session.removeAttribute("searchType");
 			}
 			if(StringUtil.isNotEmpty(dormBuildId)) {
-				visitorRecord.setVisDormBuild(dormBuildId);
+			    dormRoomRating.setDormBuildId(dormBuildId);
 				session.setAttribute("buildToSelect", dormBuildId);
 			}else {
 				session.removeAttribute("buildToSelect");
+			}
+			if(StringUtil.isNotEmpty(ratingDate)){
+			    dormRoomRating.setRatingDate(ratingDate);
 			}
 		}	
 		if(StringUtil.isEmpty(page)) {
@@ -129,7 +134,25 @@ public class DormRoomRatingServlet extends HttpServlet{
 		}
 	}
 	
-	private void dormRoomRatingSave(HttpServletRequest request, HttpServletResponse response) {
+	private void dormRoomRatingDelete(HttpServletRequest request, HttpServletResponse response) {
+	    String id = request.getParameter("id");
+        Connection con = null;
+        try {
+            con = dbUtil.getCon();
+            dormRoomRatingDao.dormRoomRatingDelete(con, id);
+            request.getRequestDispatcher("dormRoomRating?action=list").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                dbUtil.closeCon(con);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void dormRoomRatingSave(HttpServletRequest request, HttpServletResponse response) {
 		String id = request.getParameter("id");
 		String dormBuildId = request.getParameter("dormBuildId");
 		String dormRoomNumber = request.getParameter("dormRoomNumber");

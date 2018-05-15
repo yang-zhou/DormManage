@@ -114,7 +114,7 @@ public class DormRoomServlet extends HttpServlet{
 				if("nopagesearch".equals(action)) {  
 					PrintWriter writer = response.getWriter();
 					writer.write(new Gson().toJson(dormRoomList));
-				}else if("search".equals(action) || "list".equals(action)) {
+				}else if("search".equals(action) || "list".equals(action) || Integer.parseInt(page) > 0) {
 					request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 				}
 			} else if("dormManager".equals((String)currentUserType)) {

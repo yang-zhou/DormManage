@@ -20,18 +20,15 @@ public class DormRoomRatingDao {
 	public List<DormRoomRating> listDormRoomRating(Connection con, PageBean pageBean, DormRoomRating dormRoomRating)throws Exception {
 		List<DormRoomRating> dormRoomRatingList = new ArrayList<DormRoomRating>();
 		StringBuffer sb = new StringBuffer("select * from t_dorm_room_rating t1");
-		/*if(StringUtil.isNotEmpty(visitorRecord.getVisName())) {
-			sb.append(" and t1.vis_name like '%"+visitorRecord.getVisName()+"%'");
+		if(StringUtil.isNotEmpty(dormRoomRating.getDormBuildId())) {
+			sb.append(" and t1.dorm_build_id ="+dormRoomRating.getDormBuildId());
 		}
-		if(StringUtil.isNotEmpty(visitorRecord.getVisDormBuildRoom())) {
-			sb.append(" and t1.vis_dorm_build_room like '%"+visitorRecord.getVisDormBuildRoom()+"%'");
+		if(StringUtil.isNotEmpty(dormRoomRating.getDormRoomNumber())) {
+			sb.append(" and t1.dorm_room_number like '%"+dormRoomRating.getDormRoomNumber()+"%'");
 		}
-		if(StringUtil.isNotEmpty(visitorRecord.getVisInTime())) {
-			sb.append(" and t1.vis_in_time >= "+"\'"+visitorRecord.getVisInTime()+"\'");
+		if(StringUtil.isNotEmpty(dormRoomRating.getRatingDate())) {
+			sb.append(" and t1.ratingdate >= "+"\'"+dormRoomRating.getRatingDate()+"\'");
 		}
-		if(StringUtil.isNotEmpty(visitorRecord.getVisOutTime())) {
-			sb.append(" and t1.vis_out_time <= "+"\'"+visitorRecord.getVisOutTime()+"\'");
-		}*/
 		if(pageBean != null) {
 			sb.append(" limit "+pageBean.getStart()+","+pageBean.getPageSize());
 		}
@@ -47,7 +44,7 @@ public class DormRoomRatingDao {
 			tempDormRoomRating.setScoreClean(rs.getString("score_clean"));
 			tempDormRoomRating.setScoreCulture(rs.getString("score_culture"));
 			tempDormRoomRating.setScoreObey(rs.getString("score_obey"));
-			tempDormRoomRating.setRatingDate(rs.getString("ratingDate"));
+			tempDormRoomRating.setRatingDate(rs.getString("rating_date"));
 			tempDormRoomRating.setRemark(rs.getString("remark"));
 			dormRoomRatingList.add(tempDormRoomRating);
 		}
@@ -56,18 +53,15 @@ public class DormRoomRatingDao {
 
 	public int dormRommRatingCount(Connection conn, DormRoomRating dormRoomRating) throws SQLException {
 		StringBuffer sb = new StringBuffer("select count(*) as total from t_dorm_room_rating t1");
-		/*if(StringUtil.isNotEmpty(visitorRecord.getVisName())) {
-			sb.append(" and t1.vis_name like '%"+visitorRecord.getVisName()+"%'");
-		}
-		if(StringUtil.isNotEmpty(visitorRecord.getVisDormBuildRoom())) {
-			sb.append(" and t1.vis_dorm_build_room like '%"+visitorRecord.getVisDormBuildRoom()+"%'");
-		}
-		if(StringUtil.isNotEmpty(visitorRecord.getVisInTime())) {
-			sb.append(" and t1.vis_in_time >= "+"\'"+visitorRecord.getVisInTime()+"\'");
-		}
-		if(StringUtil.isNotEmpty(visitorRecord.getVisOutTime())) {
-			sb.append(" and t1.vis_out_time <= "+"\'"+visitorRecord.getVisOutTime()+"\'");
-		}*/
+		if(StringUtil.isNotEmpty(dormRoomRating.getDormBuildId())) {
+            sb.append(" and t1.dorm_build_id ="+dormRoomRating.getDormBuildId());
+        }
+        if(StringUtil.isNotEmpty(dormRoomRating.getDormRoomNumber())) {
+            sb.append(" and t1.dorm_room_number like '%"+dormRoomRating.getDormRoomNumber()+"%'");
+        }
+        if(StringUtil.isNotEmpty(dormRoomRating.getRatingDate())) {
+            sb.append(" and t1.ratingdate >= "+"\'"+dormRoomRating.getRatingDate()+"\'");
+        }
 		PreparedStatement pstmt = conn.prepareStatement(sb.toString().replaceFirst("and", "where"));
 		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {
@@ -91,14 +85,14 @@ public class DormRoomRatingDao {
 			tempDormRoomRating.setScoreClean(rs.getString("score_clean"));
 			tempDormRoomRating.setScoreCulture(rs.getString("score_culture"));
 			tempDormRoomRating.setScoreObey(rs.getString("score_obey"));
-			tempDormRoomRating.setRatingDate(rs.getString("ratingDate"));
+			tempDormRoomRating.setRatingDate(rs.getString("rating_date"));
 			tempDormRoomRating.setRemark(rs.getString("remark"));
 		}
 		return tempDormRoomRating;
 	}
 
 	public int dormRoomRatingAdd(Connection con, DormRoomRating dormRoomRating) throws NumberFormatException, Exception {
-		String sql = "insert into t_dorm_room_rating (dorm_build_id,dorm_build_name,dorm_room_number,score_clean,score_culture,score_obey,ratingDate,remark) values(?,?,?,?,?,?,?,?)";
+		String sql = "insert into t_dorm_room_rating (dorm_build_id,dorm_build_name,dorm_room_number,score_clean,score_culture,score_obey,rating_date,remark) values(?,?,?,?,?,?,?,?)";
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:MM:ss");
 		PreparedStatement pstmt=con.prepareStatement(sql);
 		pstmt.setString(1, dormRoomRating.getDormBuildId());
@@ -112,7 +106,7 @@ public class DormRoomRatingDao {
 		return pstmt.executeUpdate();
 	}
 
-	public List<VisitorRecord> visitorRecordWithBuild(Connection conn, VisitorRecord visitorRecord, int buildId) throws SQLException {
+	/*public List<VisitorRecord> visitorRecordWithBuild(Connection conn, VisitorRecord visitorRecord, int buildId) throws SQLException {
 		List<VisitorRecord> visitorRecordList = new ArrayList<VisitorRecord>();
 		StringBuffer sb = new StringBuffer("select * from t_visitor t1");
 		if(StringUtil.isNotEmpty(visitorRecord.getVisName())) {
@@ -148,6 +142,13 @@ public class DormRoomRatingDao {
 			visitorRecordList.add(tempVisitorRecord);
 		}
 		return visitorRecordList;
-	}
+	}*/
+
+    public int dormRoomRatingDelete(Connection con, String id) throws SQLException {
+        String sql = "delete from t_dorm_room_rating where id=?";
+        PreparedStatement pstmt=con.prepareStatement(sql);
+        pstmt.setString(1, id);
+        return pstmt.executeUpdate();
+    }
 }
 
