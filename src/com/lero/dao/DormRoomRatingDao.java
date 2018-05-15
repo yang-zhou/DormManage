@@ -150,5 +150,19 @@ public class DormRoomRatingDao {
         pstmt.setString(1, id);
         return pstmt.executeUpdate();
     }
+
+    public int dormRoomRatingUpdate(Connection con, DormRoomRating dormRoomRating) throws NumberFormatException, Exception {
+        String sql = "update t_dorm_room_rating set dorm_build_id=?,dorm_build_name=?,dorm_room_number=?,score_clean=?,score_culture=?,score_obey=?,remark=? where id=?";
+        PreparedStatement pstmt=con.prepareStatement(sql);
+        pstmt.setString(1, dormRoomRating.getDormBuildId());
+        pstmt.setString(2, dormBuildDao.dormBuildName(con, Integer.parseInt(dormRoomRating.getDormBuildId())));
+        pstmt.setString(3, dormRoomRating.getDormRoomNumber());
+        pstmt.setString(4, dormRoomRating.getScoreClean());
+        pstmt.setString(5, dormRoomRating.getScoreCulture());
+        pstmt.setString(6, dormRoomRating.getScoreObey());
+        pstmt.setString(7, dormRoomRating.getRemark());
+        pstmt.setString(8, dormRoomRating.getId());
+        return pstmt.executeUpdate();
+    }
 }
 

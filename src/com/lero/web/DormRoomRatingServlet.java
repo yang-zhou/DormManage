@@ -170,7 +170,7 @@ public class DormRoomRatingServlet extends HttpServlet{
 			con = dbUtil.getCon();
 			int saveNum = 0;
 			if(StringUtil.isNotEmpty(id)) {
-				//saveNum = studentDao.studentUpdate(con, student);
+				saveNum = dormRoomRatingDao.dormRoomRatingUpdate(con, dormRoomRating);
 			} else {
 				saveNum = dormRoomRatingDao.dormRoomRatingAdd(con, dormRoomRating);
 			}

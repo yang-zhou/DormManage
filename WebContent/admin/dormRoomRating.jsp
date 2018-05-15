@@ -101,6 +101,7 @@ window.onload = function(){
 						<td>${dormRoomRating.ratingDate }</td>
 						<td>${dormRoomRating.remark }</td>
 						<td>
+							<button class="btn btn-mini btn-info" type="button" onclick="javascript:window.location='dormRoomRating?action=preSave&id=${dormRoomRating.id }'">修改</button>&nbsp;
 							<button class="btn btn-mini btn-danger" type="button" onclick="dormRoomRatingDelete(${dormRoomRating.id })">删除</button></td>
 					</tr>
 				</c:forEach>
