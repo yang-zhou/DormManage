@@ -3,25 +3,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script type="text/javascript">
-
+function studentCancel(studentId) {
+	if(confirm("您确定要注销这个学生吗？")) {
+		window.location="student?action=delete&studentId="+studentId;
+	}
+}
 $(document).ready(function(){
 	$("ul li:eq(1)").addClass("active");
 	$("ul li:eq(1)").css("background-color","lightblue");
-	/* $('.datatable').dataTable( {        				
-		 "oLanguage": {
-				"sUrl": "/DormManage/media/zh_CN.json"
-		 },
-		"bLengthChange": false, //改变每页显示数据数量
-		"bFilter": false, //过滤功能
-		"aoColumns": [
-			null,
-			null,
-			null,
-			{ "asSorting": [ ] },
-			null,
-			{ "asSorting": [ ] },
-		]
-	}); */
 });
 
 window.onload = function(){ 
@@ -44,6 +33,7 @@ window.onload = function(){
 			学生管理
 		</div>
 		<form name="myForm" class="form-search" method="post" action="student?action=search" style="padding-bottom: 0px">
+				<button class="btn btn-success" type="button" style="margin-right: 50px;" onclick="javascript:window.location='student?action=preSave'">添加</button>
 				<span class="data_search">
 					<span><font style="font-family: '黑体'; font-style: 'bold'; font-size: 20px" color="blue">${dormBuildName }&nbsp;&nbsp;</font></span>
 					<select id="searchType" name="searchType" style="width: 80px;">
@@ -80,7 +70,7 @@ window.onload = function(){
 						<td>${student.dormName }</td>
 						<td>${student.tel }</td>
 						<td>
-							<button class="btn btn-mini btn-warning" type="button" onclick="studentDelete(${student.studentId })">注销</button></td>
+							<button class="btn btn-mini btn-warning" type="button" onclick="studentCancel(${student.studentId })">注销</button></td>
 						</td>
 					</tr>
 				</c:forEach>

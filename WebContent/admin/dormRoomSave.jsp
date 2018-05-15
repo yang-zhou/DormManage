@@ -70,7 +70,7 @@
 						</tr>
 						<tr>
 							<td><font color="red"></font>简介：</td>
-							<td><textarea type="text" id="remark"  name="remark" value="${dormRoom.remark }"  style="margin-top:5px;height:30px;"></textarea></td>
+							<td><textarea type="text" id="remark"  name="remark"  style="margin-top:5px;height:30px;">${dormRoom.remark }</textarea></td>
 						</tr>
 					</table>
 					<div align="center">

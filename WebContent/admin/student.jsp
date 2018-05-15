@@ -7,22 +7,6 @@
 $(document).ready(function(){
 	$("ul li:eq(1)").addClass("active");
 	$("ul li:eq(1)").css("background-color","lightblue");
-/* 	$('.datatable').dataTable( {        				
-		 "oLanguage": {
-				"sUrl": "/DormManage/media/zh_CN.json"
-		 },
-		"bLengthChange": false, //改变每页显示数据数量
-		"bFilter": false, //过滤功能
-		"aoColumns": [
-			null,
-			null,
-			null,
-			null,
-			null,
-			{ "asSorting": [ ] },
-			{ "asSorting": [ ] }
-		]
-	}); */
 });
 
 window.onload = function(){ 

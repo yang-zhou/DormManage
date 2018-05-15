@@ -80,10 +80,10 @@ public class DormRoomDao {
 		return pstmt.executeUpdate();
 	}
 	
-	public int dormRoomDelete(Connection con, String dormRoomNumber)throws Exception {
-		String sql = "delete from t_dorm_room where dorm_room_number=?";
+	public int dormRoomDelete(Connection con, String id)throws Exception {
+		String sql = "delete from t_dorm_room where id=?";
 		PreparedStatement pstmt=con.prepareStatement(sql);
-		pstmt.setString(1, dormRoomNumber);
+		pstmt.setString(1, id);
 		return pstmt.executeUpdate();
 	}
 
@@ -97,10 +97,10 @@ public class DormRoomDao {
 			dormRoom.setId(rs.getString("id"));
 			dormRoom.setDormBuildId(rs.getString("dorm_build_id"));
 			dormRoom.setDormBuildName(rs.getString("dorm_build_name"));
-			dormRoom.setDormRoomNumber(rs.getString("dorm_build_number"));
-			dormRoom.setDormRoomName(rs.getString("dorm_build_name"));
-			dormRoom.setDormRoomTel(rs.getString("dorm_build_tel"));
-			dormRoom.setDormRoomMax(rs.getString("dorm_build_max"));
+			dormRoom.setDormRoomNumber(rs.getString("dorm_room_number"));
+			dormRoom.setDormRoomName(rs.getString("dorm_room_name"));
+			dormRoom.setDormRoomTel(rs.getString("dorm_room_tel"));
+			dormRoom.setDormRoomMax(rs.getString("dorm_room_max"));
 			dormRoom.setRemark(rs.getString("remark"));
 		}
 		return dormRoom;
@@ -127,12 +127,17 @@ public class DormRoomDao {
 		return dormRoomList;
 	}
 	
-	/*public int dormRoomUpdate(Connection con, DormRoom dormRoom)throws Exception {
-		String sql = "update t_dorm_room set dorm_build_id=?,dorm_room_number=?,dorm_room_name=?,dorm_room_tel=?,dorm_room_max where dorm_room_number=?";
+	public int dormRoomUpdate(Connection con, DormRoom dormRoom)throws Exception {
+		String sql = "update t_dorm_room set dorm_build_id=?,dorm_build_name=?,dorm_room_number=?,dorm_room_name=?,dorm_room_tel=?,dorm_room_max=?,remark=? where id=?";
 		PreparedStatement pstmt=con.prepareStatement(sql);
-		pstmt.setString(1, dormBuild.getDormBuildName());
-		pstmt.setString(2, dormBuild.getDetail());
-		pstmt.setInt(3, dormBuild.getDormBuildId());
+		pstmt.setString(1, dormRoom.getDormBuildId());
+		pstmt.setString(2, DormBuildDao.dormBuildName(con, Integer.parseInt(dormRoom.getDormBuildId())));
+		pstmt.setString(3, dormRoom.getDormRoomNumber());
+		pstmt.setString(4, dormRoom.getDormRoomName());
+		pstmt.setString(5, dormRoom.getDormRoomTel());
+		pstmt.setString(6, dormRoom.getDormRoomMax());
+		pstmt.setString(7, dormRoom.getRemark());
+		pstmt.setString(8, dormRoom.getId());
 		return pstmt.executeUpdate();
-	}*/
+	}
 }

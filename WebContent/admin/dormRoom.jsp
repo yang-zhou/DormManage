@@ -3,9 +3,9 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <script type="text/javascript">
-	function dormBuildDelete(dormBuildId) {
-		if(confirm("您确定要删除这个宿舍楼吗？")) {
-			window.location="dormBuild?action=delete&dormBuildId="+dormBuildId;
+	function dormRoomDelete(id) {
+		if(confirm("您确定要删除这个宿舍吗？")) {
+			window.location="dormRoom?action=delete&id="+id;
 		}
 	}
 	$(document).ready(function(){
@@ -53,8 +53,8 @@
 						<%-- <td>${dormRoom.dormRoomMax }</td> --%>
 						<td>${dormRoom.remark==null||dormRoom.remark==""?"无":dormRoom.remark }</td>
 						<td>
-							<button class="btn btn-mini btn-info" type="button" onclick="javascript:window.location='dormBuild?action=preSave&dormBuildId=${dormBuild.dormBuildId }'">修改</button>&nbsp;
-							<button class="btn btn-mini btn-danger" type="button" onclick="dormBuildDelete(${dormBuild.dormBuildId})">删除</button>
+							<button class="btn btn-mini btn-info" type="button" onclick="javascript:window.location='dormRoom?action=preSave&id=${dormRoom.id }'">修改</button>&nbsp;
+							<button class="btn btn-mini btn-danger" type="button" onclick="dormRoomDelete(${dormRoom.id})">删除</button>
 						</td>
 					</tr>
 					</c:forEach>

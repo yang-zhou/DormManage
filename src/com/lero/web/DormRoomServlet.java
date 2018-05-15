@@ -66,6 +66,9 @@ public class DormRoomServlet extends HttpServlet{
 		} else if("save".equals(action)){
 			dormRoomSave(request, response);
 			return;
+		}else if("delete".equals(action)){
+			dormRoomDelete(request, response);
+			return;
 		} else if("list".equals(action)) {
 		
 		} else if("search".equals(action)) {
@@ -150,6 +153,24 @@ public class DormRoomServlet extends HttpServlet{
 		}
 	}
 	
+	private void dormRoomDelete(HttpServletRequest request, HttpServletResponse response) {
+		String id = request.getParameter("id");
+		Connection con = null;
+		try {
+			con = dbUtil.getCon();
+			dormRoomDao.dormRoomDelete(con, id);
+			request.getRequestDispatcher("dormRoom?action=list").forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				dbUtil.closeCon(con);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
 	private void dormRoomSave(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
@@ -175,7 +196,7 @@ public class DormRoomServlet extends HttpServlet{
 				dormRoom.setDormBuildName(dormBuildName);
 			}
 			if(StringUtil.isNotEmpty(id)) {
-				//saveNum = studentDao.studentUpdate(con, student);
+				saveNum = dormRoomDao.dormRoomUpdate(con, dormRoom);
 			} else {
 				saveNum = dormRoomDao.dormRoomAdd(con, dormRoom);
 			}

@@ -275,6 +275,7 @@ public class StudentServlet extends HttpServlet{
 
 	private void studentPreSave(HttpServletRequest request,
 			HttpServletResponse response)throws ServletException, IOException {
+		Object currentUserType = request.getSession().getAttribute("currentUserType");
 		String studentId = request.getParameter("studentId");
 		Connection con = null;
 		try {
@@ -293,8 +294,13 @@ public class StudentServlet extends HttpServlet{
 				e.printStackTrace();
 			}
 		}
-		request.setAttribute("mainPage", "admin/studentSave.jsp");
-		request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
+		if("admin".equals((String)currentUserType)) {
+			request.setAttribute("mainPage", "admin/studentSave.jsp");
+			request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
+		}else if("dormManager".equals((String)currentUserType)) {
+			request.setAttribute("mainPage", "dormManager/studentSave.jsp");
+			request.getRequestDispatcher("mainManager.jsp").forward(request, response);
+		}
 	}
 	
 	private String genPagation(int totalNum, int currentPage, int pageSize){

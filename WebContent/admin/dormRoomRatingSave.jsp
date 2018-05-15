@@ -4,8 +4,12 @@
 <%@ page import="com.lero.model.DormRoomRating" %>
 <%
 DormRoomRating dormRoomRating = (DormRoomRating)request.getAttribute("dormRoomRating");
-String dormBuildId = dormRoomRating.getDormBuildId();
-String dormRoomNumber = dormRoomRating.getDormRoomNumber();
+String dormBuildId = "";
+String dormRoomNumber = "";
+if(dormRoomRating != null){
+	dormBuildId = dormRoomRating.getDormBuildId();
+	dormRoomNumber = dormRoomRating.getDormRoomNumber();
+}
 %>
 <script type="text/javascript">
 	function checkForm(){

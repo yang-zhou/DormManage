@@ -1,14 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.lero.model.Student" %>
+<%@ page import="com.lero.model.*" %>
 <%
 Student student = (Student)request.getAttribute("student");
+DormManager manager = (DormManager)(session.getAttribute("currentUser"));
 String dormBuildId ="";
 String dormRoomNumber ="";
 if(student!=null){
 	 dormBuildId = student.getDormBuildId()+"";
 	 dormRoomNumber = student.getDormName();
+}
+String buildId ="";
+if(manager!=null){
+	buildId = manager.getDormBuildId()+"";
 }
 %>
 
@@ -18,6 +23,7 @@ if(student!=null){
 		var password=document.getElementById("password").value;
 		var rPassword=document.getElementById("rPassword").value;
 		var dormBuildId=document.getElementById("dormBuildId").value;
+		$("#dormBuildId").attr("disabled",false);
 		var dormName=document.getElementById("dormName").value;
 		var name=document.getElementById("name").value;
 		var sex=document.getElementById("sex").value;
@@ -70,6 +76,12 @@ if(student!=null){
 		
 		var dormBuildId = "<%=dormBuildId%>";
 		var dormRoomNumber = "<%=dormRoomNumber%>";
+		var buildId = "<%=buildId%>";
+		if(buildId && buildId != ""){
+			$("#dormBuildId").val(buildId);
+			showDormRooms();
+			$("#dormBuildId").attr("disabled","disabled");
+		}
 		if(dormBuildId && dormBuildId != ""){
 			var promise = showDormRooms();
 			promise.then(function(pdata){
