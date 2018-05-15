@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.lero.model.Student" %>
+<%
+Student student = (Student)request.getAttribute("student");
+String dormBuildId = student.getDormBuildId()+"";
+String dormRoomNumber = student.getDormName();
+%>
+
 <script type="text/javascript">
 	function checkForm(){
 		var userName=document.getElementById("userName").value;
@@ -21,36 +28,53 @@
 		return true;
 	}
 	function showDormRooms() {
-		var $select = $("#dormRoom");
+		var promise = {};
+		var $select = $("#dormName");
 		var dormBuildId = $("#dormBuildId").val();
 		var param = {};
 		param.buildToSelect = dormBuildId;
 		if(dormBuildId){
-			$.ajax({
-				url: "http://localhost:8081/DormManage/dormRoom?action=nopagesearch",
-				type: 'POST',
-				dataType: "json",			  
-				data: param,
-				success: function(data){
-					//var firstOption = $("#dormRoom").children()[0];
-					if(data){
-						var options = "";
-						$.each(data, function(i,item){
-							options += "<option value= " + item.dormRoomNumber + ">"+ item.dormRoomNumber +"</option>";
-						});
-						if($select[0]){
-							$select.empty();
-							$select.append("<option value=''>请选择...</option>");
-							$select.append(options);
+			promise = new Promise(function(resolve, reject) {
+				$.ajax({
+					url: "/DormManage/dormRoom?action=nopagesearch",
+					type: 'POST',
+					dataType: "json",			  
+					data: param,
+					success: function(data){
+						//var firstOption = $("#dormRoom").children()[0];
+						if(data){
+							resolve(data);
+							var options = "";
+							$.each(data, function(i,item){
+								options += "<option value= " + item.dormRoomNumber + ">"+ item.dormRoomNumber +"</option>";
+							});
+							if($select[0]){
+								$select.empty();
+								$select.append("<option value=''>请选择...</option>");
+								$select.append(options);
+							}
 						}
 					}
-				}
+				});
 			});
 		}
+		return promise;
 	}
 	$(document).ready(function(){
 		$("ul li:eq(1)").addClass("active");
 		$("ul li:eq(1)").css("background-color","lightblue");
+		
+		var dormBuildId = "<%=dormBuildId%>";
+		var dormRoomNumber = "<%=dormRoomNumber%>";
+		if(dormBuildId && dormBuildId != ""){
+			var promise = showDormRooms();
+			promise.then(function(pdata){
+				if(dormRoomNumber && dormRoomNumber != ""){
+					$("#dormName").val(dormRoomNumber); 
+				}
+			});
+		}
+		
 	});
 </script>
 <div class="data_list">
@@ -107,12 +131,8 @@
 						</tr>
 						<tr>
 							<td><font color="red">*</font>寝室：</td>
-							<td><input type="text" id="dormName"  name="dormName" value="${student.dormName }"  style="margin-top:5px;height:30px;" /></td>
-						</tr>
-						<tr>
-							<td><font color="red">*</font>id：</td>
 							<td>
-								<select id="dormRoom" name="dormRoom" style="width: 90px;">
+								<select id="dormName" name="dormName" style="width: 90px;">
 									<option>请选择...</option>
 								</select>
 							</td>

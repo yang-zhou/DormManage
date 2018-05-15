@@ -198,7 +198,7 @@ public class StudentDao {
 	}
 	
 	public int studentAdd(Connection con, Student student)throws Exception {
-		String sql = "insert into t_student values(null,?,?,?,?,?,?,?)";
+		String sql = "insert into t_student (stuNum,password,name,dormBuildId,dormName,sex,tel) values(?,?,?,?,?,?,?)";
 		PreparedStatement pstmt=con.prepareStatement(sql);
 		pstmt.setString(1, student.getStuNumber());
 		pstmt.setString(2, student.getPassword());

@@ -121,7 +121,12 @@ public class DormRoomServlet extends HttpServlet{
 				DormManager manager = (DormManager)(session.getAttribute("currentUser"));
 				int buildId = manager.getDormBuildId();
 				String buildName = DormBuildDao.dormBuildName(conn, buildId);
-				List<DormRoom> dormRoomList = dormRoomDao.visitorRecordWithBuild(conn, dormRoom, buildId);
+				dormRoom.setDormBuildId(buildId+"");
+				//List<DormRoom> dormRoomList = dormRoomDao.visitorRecordWithBuild(conn, dormRoom, buildId);
+				List<DormRoom> dormRoomList = dormRoomDao.dormRoomList(conn, pageBean,dormRoom);
+				int total=dormRoomDao.dormRoomCount(conn, dormRoom);
+                String pageCode = this.genPagation(total, Integer.parseInt(page), Integer.parseInt(PropertiesUtil.getValue("pageSize")));
+                request.setAttribute("pageCode", pageCode);
 				request.setAttribute("dormBuildName", buildName);
 				request.setAttribute("dormRoomList", dormRoomList);
 				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
@@ -133,9 +138,6 @@ public class DormRoomServlet extends HttpServlet{
 					request.getRequestDispatcher("mainManager.jsp").forward(request, response);
 				}
 			}
-			
-			
-			
 			/*response.setContentType("application/json;charset=utf-8");
 			response.setCharacterEncoding("UTF-8");
 			PrintWriter out =null ;  

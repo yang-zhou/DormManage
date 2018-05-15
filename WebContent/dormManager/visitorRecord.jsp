@@ -93,7 +93,7 @@ window.onload = function(){
 					<th>出寝时间</th>
 					<th>登记人</th>
 					<th>备注</th>
-					<th>操作</th>
+				<!-- 	<th>操作</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -110,8 +110,9 @@ window.onload = function(){
 						<td>${visitorRecord.visOutTime }</td>
 						<td>${visitorRecord.checkedId }</td>
 						<td>${visitorRecord.remark }</td>
-						<td>
-							<button class="btn btn-mini btn-danger" type="button" onclick="recordDelete(${visitorRecord.id })">删除</button></td>
+						<%-- <td>
+							<button class="btn btn-mini btn-danger" type="button" onclick="recordDelete(${visitorRecord.id })">删除</button>
+						</td> --%>
 					</tr>
 				</c:forEach>
 				</tbody>

@@ -179,7 +179,12 @@ public class StudentServlet extends HttpServlet{
 				DormManager manager = (DormManager)(session.getAttribute("currentUser"));
 				int buildId = manager.getDormBuildId();
 				String buildName = DormBuildDao.dormBuildName(con, buildId);
-				List<Student> studentList = studentDao.studentListWithBuild(con, student, buildId);
+				//List<Student> studentList = studentDao.studentListWithBuild(con, student, buildId);
+				student.setDormBuildId(buildId);
+				List<Student> studentList = studentDao.studentList(con, pageBean, student);
+				int total=studentDao.studentCount(con, student);
+                String pageCode = this.genPagation(total, Integer.parseInt(page), Integer.parseInt(PropertiesUtil.getValue("pageSize")));
+                request.setAttribute("pageCode", pageCode);
 				request.setAttribute("dormBuildName", buildName);
 				request.setAttribute("studentList", studentList);
 				request.setAttribute("mainPage", "dormManager/student.jsp");

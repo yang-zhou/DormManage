@@ -88,4 +88,9 @@ window.onload = function(){
 			</table>
 		</div>
 		<div align="center"><font color="red">${error }</font></div>
+		<nav aria-label="Page navigation">
+		  <ul class="pagination">
+		  	${pageCode }
+		  </ul>
+		</nav>
 </div>

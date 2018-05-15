@@ -55,9 +55,9 @@ public class DormRoomDao {
 	
 	public int dormRoomCount(Connection con, DormRoom dormRoom)throws Exception {
 		StringBuffer sb = new StringBuffer("select count(*) as total from t_dorm_room t1");
-		/*if(StringUtil.isNotEmpty(dormRoom.getDormBuildName())) {
-			sb.append(" where t1.dormBuildName like '%"+s_dormBuild.getDormBuildName()+"%'");
-		}*/
+		if(StringUtil.isNotEmpty(dormRoom.getDormBuildId())) {
+			sb.append(" where t1.dorm_build_id ="+dormRoom.getDormBuildId());
+		}
 		PreparedStatement pstmt = con.prepareStatement(sb.toString());
 		ResultSet rs = pstmt.executeQuery();
 		if(rs.next()) {

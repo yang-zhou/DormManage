@@ -111,7 +111,12 @@ public class VisitorRecordServlet extends HttpServlet{
 				DormManager manager = (DormManager)(session.getAttribute("currentUser"));
 				int buildId = manager.getDormBuildId();
 				String buildName = DormBuildDao.dormBuildName(conn, buildId);
-				List<VisitorRecord> visitorRecordList = visitorRecordDao.visitorRecordWithBuild(conn, visitorRecord, buildId);
+				visitorRecord.setVisDormBuild(buildId+"");
+				//List<VisitorRecord> visitorRecordList = visitorRecordDao.visitorRecordWithBuild(conn, visitorRecord, buildId);
+				List<VisitorRecord> visitorRecordList = visitorRecordDao.listVisitorRecord(conn, pageBean, visitorRecord);
+				int total=visitorRecordDao.visitorRecordCount(conn, visitorRecord);
+                String pageCode = this.genPagation(total, Integer.parseInt(page), Integer.parseInt(PropertiesUtil.getValue("pageSize")));
+                request.setAttribute("pageCode", pageCode);
 				request.setAttribute("dormBuildName", buildName);
 				request.setAttribute("visitorRecordList", visitorRecordList);
 				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
