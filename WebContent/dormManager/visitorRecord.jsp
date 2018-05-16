@@ -6,22 +6,6 @@
 $(document).ready(function(){
 	$("ul li:eq(3)").addClass("active");
 	$("ul li:eq(3)").css("background-color","lightblue");
-	/* $('.datatable').dataTable( {        				
-		 "oLanguage": {
-				"sUrl": "/DormManage/media/zh_CN.json"
-		 },
-		"bLengthChange": false, //改变每页显示数据数量
-		"bFilter": false, //过滤功能
-		"aoColumns": [
-			null,
-			null,
-			null,
-			null,
-			null,
-			{ "asSorting": [ ] },
-			{ "asSorting": [ ] }
-		]
-	}); */
 	$("#DataTables_Table_0_wrapper .row-fluid").remove();
 	laydate.render({
 		elem: '#startDate'
@@ -36,9 +20,9 @@ $(document).ready(function(){
 window.onload = function(){ 
 	$("#DataTables_Table_0_wrapper .row-fluid").remove();
 };
-	function recordDelete(recordId) {
+	function recordDelete(id) {
 		if(confirm("您确定要删除这条记录吗？")) {
-			window.location="record?action=delete&recordId="+recordId;
+			window.location="visitorRecord?action=delete&id="+id;
 		}
 	}
 </script>

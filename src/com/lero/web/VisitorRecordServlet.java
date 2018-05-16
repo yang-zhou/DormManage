@@ -62,7 +62,10 @@ public class VisitorRecordServlet extends HttpServlet{
 		} else if("save".equals(action)){
 			visitorRecordSave(request, response);
 			return;
-		} else if("list".equals(action)) {
+		} else if("delete".equals(action)){
+		    visitorRecordDelete(request, response);
+            return;
+        }  else if("list".equals(action)) {
 		
 		} else if("search".equals(action)) {
 			if(StringUtil.isNotEmpty(s_visitorRecordText)) {
@@ -138,7 +141,25 @@ public class VisitorRecordServlet extends HttpServlet{
 		}
 	}
 	
-	private void visitorRecordSave(HttpServletRequest request, HttpServletResponse response) {
+	private void visitorRecordDelete(HttpServletRequest request, HttpServletResponse response) {
+	    String id = request.getParameter("id");
+        Connection con = null;
+        try {
+            con = dbUtil.getCon();
+            visitorRecordDao.visitorRecordDelete(con, id);
+            request.getRequestDispatcher("visitorRecord?action=list").forward(request, response);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                dbUtil.closeCon(con);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private void visitorRecordSave(HttpServletRequest request, HttpServletResponse response) {
 		
 		String id = request.getParameter("id");
 		String visName = request.getParameter("visName");

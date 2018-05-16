@@ -20,9 +20,9 @@ $(document).ready(function(){
 window.onload = function(){ 
 	$("#DataTables_Table_0_wrapper .row-fluid").remove();
 };
-	function recordDelete(recordId) {
+	function recordDelete(id) {
 		if(confirm("您确定要删除这条记录吗？")) {
-			window.location="record?action=delete&recordId="+recordId;
+			window.location="visitorRecord?action=delete&id="+id;
 		}
 	}
 </script>

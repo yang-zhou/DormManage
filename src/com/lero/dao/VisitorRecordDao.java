@@ -155,4 +155,11 @@ public class VisitorRecordDao {
 		}
 		return visitorRecordList;
 	}
+
+    public int visitorRecordDelete(Connection con, String id) throws SQLException {
+        String sql = "delete from t_visitor where id=?";
+        PreparedStatement pstmt=con.prepareStatement(sql);
+        pstmt.setString(1, id);
+        return pstmt.executeUpdate();
+    }
 }
