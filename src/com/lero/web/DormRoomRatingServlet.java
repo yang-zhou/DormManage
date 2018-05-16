@@ -119,7 +119,21 @@ public class DormRoomRatingServlet extends HttpServlet{
 				request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
 				request.setAttribute("mainPage", "dormManager/dormRoomRating.jsp");
 				request.getRequestDispatcher("mainManager.jsp").forward(request, response);
-			}
+			} else if("student".equals((String)currentUserType)) {
+                Student student = (Student)(session.getAttribute("currentUser"));
+                int buildId = student.getDormBuildId();
+                String dormRoomNumber = student.getDormName();
+                dormRoomRating.setDormBuildId(buildId+"");
+                dormRoomRating.setDormRoomNumber(dormRoomNumber);
+                String buildName = DormBuildDao.dormBuildName(conn, buildId);
+                List<DormRoomRating> dormRoomRatingList = dormRoomRatingDao.listDormRoomRating(conn, pageBean, dormRoomRating);
+                request.setAttribute("dormBuildName", buildName);
+                request.setAttribute("dormRoomNumber", dormRoomNumber);
+                request.setAttribute("dormRoomRatingList", dormRoomRatingList);
+                request.setAttribute("dormBuildList", studentDao.dormBuildList(conn));
+                request.setAttribute("mainPage", "student/dormRoomRating.jsp");
+                request.getRequestDispatcher("mainStudent.jsp").forward(request, response);
+            }
 			
 			
 			

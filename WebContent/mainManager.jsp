@@ -93,8 +93,8 @@
 					<li><a href="student?action=list"><i class="icon-chevron-right"></i>学生管理</a></li>
 					<li><a href="dormRoom?action=list"><i class="icon-chevron-right"></i>寝室管理</a></li>
 					<li><a href="dormRoomRating?action=list"><i class="icon-chevron-right"></i>寝室评比</a></li>
-					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>访问记录</a></li>
-					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>物品存放</a></li>
+					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>外来访问记录</a></li>
+					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>物品寄放管理</a></li>
 					<!-- <li><a href="record?action=list"><i class="icon-chevron-right"></i>缺勤记录</a></li> -->
 					<li><a href="password?action=preChange"><i class="icon-chevron-right"></i>修改密码</a></li>
 					<li><a href="login.jsp"><i class="icon-chevron-right"></i>退出系统</a></li>

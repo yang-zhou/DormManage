@@ -4,8 +4,8 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("ul li:eq(5)").addClass("active");
-	$("ul li:eq(5)").css("background-color","lightblue");
+	$("ul li:eq(2)").addClass("active");
+	$("ul li:eq(2)").css("background-color","lightblue");
 	$("#DataTables_Table_0_wrapper .row-fluid").remove();
 	laydate.render({
 		elem: '#startDate'
@@ -32,7 +32,7 @@ window.onload = function(){
 			寝室评比
 		</div>
 		<form name="myForm" class="form-search" method="post" action="dormRoomRating?action=search" style="padding-bottom: 0px">
-				<button class="btn btn-success" type="button" style="margin-right: 50px;" onclick="javascript:window.location='dormRoomRating?action=preSave'">添加</button>
+				<!-- <button class="btn btn-success" type="button" style="margin-right: 50px;" onclick="javascript:window.location='dormRoomRating?action=preSave'">添加</button> -->
 				<span class="data_search">
 					<%-- <span class="controls input-append date form_date" style="margin-right: 10px" data-date="" data-date-format="yyyy-mm-dd" data-link-format="yyyy-mm-dd">
                     	<input id="startDate" name="startDate" style="width:120px;height: 30px;" placeholder="起始日期" type="text" value="${startDate }" readonly >
@@ -85,8 +85,8 @@ window.onload = function(){
 						<td>${dormRoomRating.ratingDate }</td>
 						<td>${dormRoomRating.remark }</td>
 						<td>
-							<button class="btn btn-mini btn-info" type="button" onclick="javascript:window.location='dormRoomRating?action=preSave&id=${dormRoomRating.id }'">修改</button>&nbsp;
-							<button class="btn btn-mini btn-danger" type="button" onclick="dormRoomRatingDelete(${dormRoomRating.id })">删除</button></td>
+							<%-- <button class="btn btn-mini btn-info" type="button" onclick="javascript:window.location='dormRoomRating?action=preSave&id=${dormRoomRating.id }'">修改</button>&nbsp;
+							<button class="btn btn-mini btn-danger" type="button" onclick="dormRoomRatingDelete(${dormRoomRating.id })">删除</button></td> --%>
 					</tr>
 				</c:forEach>
 				</tbody>

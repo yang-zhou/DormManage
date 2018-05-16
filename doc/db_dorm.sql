@@ -2,36 +2,18 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50719
+Source Server Version : 50637
 Source Host           : localhost:3306
 Source Database       : db_dorm
 
 Target Server Type    : MYSQL
-Target Server Version : 50719
+Target Server Version : 50637
 File Encoding         : 65001
 
-Date: 2018-05-15 23:16:04
+Date: 2018-05-16 15:23:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
-
--- ----------------------------
--- Table structure for stored_items
--- ----------------------------
-DROP TABLE IF EXISTS `stored_items`;
-CREATE TABLE `stored_items` (
-  `id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '唯一id',
-  `stu_num` bigint(255) DEFAULT NULL COMMENT '学生编号',
-  `strored_in_time` varchar(255) DEFAULT NULL COMMENT '存放时间',
-  `strored_out_time` varchar(255) DEFAULT NULL COMMENT '取走时间',
-  `strored_status` tinyint(2) DEFAULT NULL COMMENT '状态',
-  `stored_remark` varchar(255) DEFAULT NULL COMMENT '备注信息',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of stored_items
--- ----------------------------
 
 -- ----------------------------
 -- Table structure for t_admin
@@ -85,8 +67,8 @@ CREATE TABLE `t_dormbuild` (
 -- ----------------------------
 -- Records of t_dormbuild
 -- ----------------------------
-INSERT INTO `t_dormbuild` VALUES ('1', '明知居', '明知居信息介绍');
-INSERT INTO `t_dormbuild` VALUES ('6', '德语居', '德语居信息介绍');
+INSERT INTO `t_dormbuild` VALUES ('1', '明知居', '明知居我王大妈吃不住？');
+INSERT INTO `t_dormbuild` VALUES ('6', '德语居', '德语居是我王大爷罩的');
 INSERT INTO `t_dormbuild` VALUES ('13', '芳华苑', '女子专用宿舍楼');
 INSERT INTO `t_dormbuild` VALUES ('556', '知行苑', '知行苑');
 INSERT INTO `t_dormbuild` VALUES ('557', '知德苑', '知德苑');
@@ -109,11 +91,9 @@ CREATE TABLE `t_dormmanager` (
 -- ----------------------------
 -- Records of t_dormmanager
 -- ----------------------------
-INSERT INTO `t_dormmanager` VALUES ('52', '测试账号1', '123456', '0', '测试1', '男', '18245697896');
-INSERT INTO `t_dormmanager` VALUES ('3244', '测试账号', '123', '1', '测试账号', '女', '123');
-INSERT INTO `t_dormmanager` VALUES ('5252', '测试账号3', '123', '13', '测试3', '男', '18245627896');
-INSERT INTO `t_dormmanager` VALUES ('8242', '123456', '123456', '6', 'beyond', '男', '18212346589');
-INSERT INTO `t_dormmanager` VALUES ('45252', '测试账号2', '123', '0', '测试2', '男', '123');
+INSERT INTO `t_dormmanager` VALUES ('3244', 'wangdama', '123', '1', '王大妈', '女', '18245627896');
+INSERT INTO `t_dormmanager` VALUES ('5252', 'lidashu', '123', '0', '李大叔', '男', '18245627896');
+INSERT INTO `t_dormmanager` VALUES ('8242', '123456', '123456', '6', '吴大爷', '男', '18212346589');
 
 -- ----------------------------
 -- Table structure for t_dorm_room
@@ -129,7 +109,7 @@ CREATE TABLE `t_dorm_room` (
   `dorm_room_max` tinyint(2) DEFAULT NULL,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dorm_room
@@ -155,13 +135,14 @@ CREATE TABLE `t_dorm_room_rating` (
   `rating_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dorm_room_rating
 -- ----------------------------
 INSERT INTO `t_dorm_room_rating` VALUES ('11', '1', '明知居', '1245', '3', '3', '3', '2018-05-15 22:05:19', '你们很厉害');
-INSERT INTO `t_dorm_room_rating` VALUES ('12', '6', '德语居', '1112', '3', '3', '5', '2018-05-15 22:39:44', '我也喜欢非主流2');
+INSERT INTO `t_dorm_room_rating` VALUES ('12', '6', '德语居', '1112', '3', '3', '5', '2018-05-16 15:00:32', '我也喜欢非主流');
+INSERT INTO `t_dorm_room_rating` VALUES ('13', '6', '德语居', '1114', '3', '3', '5', '2018-05-16 15:00:32', '');
 
 -- ----------------------------
 -- Table structure for t_record
@@ -185,6 +166,24 @@ INSERT INTO `t_record` VALUES ('1', '002', '李四', '4', '120', '2014-01-01', '
 INSERT INTO `t_record` VALUES ('3', '007', '测试1', '1', '221', '2014-08-11', '123');
 
 -- ----------------------------
+-- Table structure for t_stored_item
+-- ----------------------------
+DROP TABLE IF EXISTS `t_stored_item`;
+CREATE TABLE `t_stored_item` (
+  `id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '唯一id',
+  `stu_num` bigint(255) DEFAULT NULL COMMENT '学生编号',
+  `strored_in_time` varchar(255) DEFAULT NULL COMMENT '存放时间',
+  `strored_out_time` varchar(255) DEFAULT NULL COMMENT '取走时间',
+  `strored_status` tinyint(2) DEFAULT NULL COMMENT '状态',
+  `stored_remark` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of t_stored_item
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for t_student
 -- ----------------------------
 DROP TABLE IF EXISTS `t_student`;
@@ -202,13 +201,14 @@ CREATE TABLE `t_student` (
   `creattime` varchar(255) DEFAULT NULL COMMENT '创建时间',
   `class` varchar(255) DEFAULT NULL COMMENT '班级',
   PRIMARY KEY (`studentId`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_student
 -- ----------------------------
-INSERT INTO `t_student` VALUES ('2', '002', '123', '李四', '6', '120', '男', '32', null, null, null, null);
-INSERT INTO `t_student` VALUES ('9', '007', '123', '测试1', '1', '221', '男', '123', null, null, null, null);
+INSERT INTO `t_student` VALUES ('2', '002', '123', '李四', '6', '1114', '男', '32', null, null, null, null);
+INSERT INTO `t_student` VALUES ('9', '007', '123', '测试1', '1', '1245', '男', '123', null, null, null, null);
+INSERT INTO `t_student` VALUES ('10', 'test', '123', 'test', '6', '1113', '男', 'test', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for t_visitor
@@ -238,5 +238,3 @@ INSERT INTO `t_visitor` VALUES ('12', '张大富', '1', '51152316621302', '18565
 INSERT INTO `t_visitor` VALUES ('13', '王文霞', '0', '51152316621302', '18565232665', '6', '德语居', '2310', '2018-05-12 21:16:10', '2018-05-12 21:16:10', '123456', '母亲访问');
 INSERT INTO `t_visitor` VALUES ('14', '王大幅', '1', '51152316621302', '18565232665', '6', '德语居', '123123', '2018-05-11 03:03:04', '2018-05-12 00:00:00', '123456', '送外卖');
 INSERT INTO `t_visitor` VALUES ('18', '李小萌', '0', '51152316621302', '18565232665', '6', '德语居', '5102', '2018-05-27 02:09:04', '2018-05-12 20:03:03', '123456', '维修宿舍电器设备');
-INSERT INTO `t_visitor` VALUES ('19', '毛利', '1', '51152316621302', '18565232665', '6', '德语居', '3014', '2018-05-12 00:00:00', '2018-05-26 00:00:00', '123456', '送水');
-SET FOREIGN_KEY_CHECKS=1;
