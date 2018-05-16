@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="com.lero.model.*" %>
+<%
+
+%>
 <script type="text/javascript">
 	function checkForm(){
 		var visName=$("#visName") ? $("#visName").val() : "";
@@ -19,7 +23,39 @@
 		}
 		return true;
 	}
-	
+	function showDormRooms() {
+		var promise = {};
+		var $select = $("#visDormBuildRoom");
+		var dormBuildId = $("#visDormBuild").val();
+		var param = {};
+		param.buildToSelect = dormBuildId;
+		if(dormBuildId){
+			promise = new Promise(function(resolve, reject) {
+				$.ajax({
+					url: "/DormManage/dormRoom?action=nopagesearch",
+					type: 'POST',
+					dataType: "json",			  
+					data: param,
+					success: function(data){
+						//var firstOption = $("#dormRoom").children()[0];
+						if(data){
+							resolve(data);
+							var options = "";
+							$.each(data, function(i,item){
+								options += "<option value= " + item.dormRoomNumber + ">"+ item.dormRoomNumber +"</option>";
+							});
+							if($select[0]){
+								$select.empty();
+								$select.append("<option value=''>请选择...</option>");
+								$select.append(options);
+							}
+						}
+					}
+				});
+			});
+		}
+		return promise;
+	}
 	$(document).ready(function(){
 		$("ul li:eq(7)").addClass("active");
 		$("ul li:eq(7)").css("background-color","lightblue");
@@ -73,7 +109,8 @@
 					<tr>
 						<td><font color="red">*</font>宿舍楼：</td>
 						<td>
-							<select id="visDormBuild" name="visDormBuild" style="width: 90px;">
+							<select  onchange="showDormRooms()" id="visDormBuild" name="visDormBuild" style="width: 90px;">
+								<option>请选择...</option>
 								<c:forEach var="visDormBuild" items="${dormBuildList }">
 									<option value="${visDormBuild.dormBuildId }" ${visitorRecord.dormBuildId==visDormBuild.dormBuildId?'selected':'' }>${visDormBuild.dormBuildName }</option>
 								</c:forEach>
@@ -82,7 +119,11 @@
 					</tr>
 					<tr>
 						<td><font color="red">*</font>寝室：</td>
-						<td><input type="text" id=visDormBuildRoom  name="visDormBuildRoom" value="${visitorRecord.visDormBuildRoom }"/></td>
+						<td>
+							<select id="visDormBuildRoom" name="visDormBuildRoom" style="width: 90px;">
+								<option>请选择...</option>
+							</select>
+						</td>
 					</tr>
 					<tr>
 						<td><font color="red">*</font>访问时间：</td>

@@ -92,6 +92,7 @@
 					<li><a href="blank"><i class="icon-chevron-right"></i>首页</a></li>
 					<li><a href="student?action=list"><i class="icon-chevron-right"></i>学生管理</a></li>
 					<li><a href="dormRoom?action=list"><i class="icon-chevron-right"></i>寝室管理</a></li>
+					<li><a href="dormRoomRating?action=list"><i class="icon-chevron-right"></i>寝室评比</a></li>
 					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>访问记录</a></li>
 					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>物品存放</a></li>
 					<!-- <li><a href="record?action=list"><i class="icon-chevron-right"></i>缺勤记录</a></li> -->

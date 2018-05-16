@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+
+
 <script type="text/javascript">
 	function changeDormBuild(){
 		if($("#dormBuildId").val()){
@@ -12,6 +14,7 @@
 	}
 	function checkForm(){
 		var dormBuildId=$("#dormBuildId").val()?$("#dormBuildId").val():"";
+		$("#dormBuildId").attr("disabled",false);
 		var dormRoomNumber=$("#dormRoomNumber").val()?$("#dormRoomNumber").val():"";
 		var dormRoomName=$("#dormRoomName").val()?$("#dormRoomName").val():"";
 		var dormRoomTel=$("#dormRoomTel").val()?$("#dormRoomTel").val():"";
@@ -49,9 +52,10 @@
 						<tr>
 							<td><font color="red">*</font>宿舍楼：</td>
 							<td>
-								<select onchange="changeDormBuild()" id="dormBuildId" name="dormBuildId" style="width: 90px;">
+								<select onchange="changeDormBuild()" id="dormBuildId" name="dormBuildId" style="width: 90px;" disabled="disabled">
+									<option>请选择...</option>
 									<c:forEach var="dormBuild" items="${dormBuildList }">
-										<option value="${dormBuild.dormBuildId }" ${dormRoom.dormBuildId==dormBuild.dormBuildId?'selected':'' }>${dormBuild.dormBuildName }</option>
+										<option value="${dormBuild.dormBuildId }" ${dormBuild.dormBuildId==currentUser.dormBuildId?'selected':'' }>${dormBuild.dormBuildName }</option>
 									</c:forEach>
 								</select>
 							</td>
@@ -70,7 +74,7 @@
 						</tr>
 						<tr>
 							<td><font color="red"></font>简介：</td>
-							<td><textarea type="text" id="remark"  name="remark" value="${dormRoom.remark }"  style="margin-top:5px;height:30px;"></textarea></td>
+							<td><textarea type="text" id="remark"  name="remark"  style="margin-top:5px;height:30px;">${dormRoom.remark }</textarea></td>
 						</tr>
 					</table>
 					<div align="center">

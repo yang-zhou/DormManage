@@ -25,8 +25,8 @@
 	}
 	
 	$(document).ready(function(){
-		$("ul li:eq(3)").addClass("active");
-		$("ul li:eq(3)").css("background-color","lightblue");
+		$("ul li:eq(4)").addClass("active");
+		$("ul li:eq(4)").css("background-color","lightblue");
 		laydate.render({
 			elem: '#visInTime'
 			,type: 'datetime'
