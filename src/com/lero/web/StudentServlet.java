@@ -242,7 +242,7 @@ public class StudentServlet extends HttpServlet{
 				saveNum = studentDao.studentUpdate(con, student);
 			} else if(studentDao.haveNameByNumber(con, student.getStuNumber())){
 				request.setAttribute("student", student);
-				request.setAttribute("error", "保存信息失败");
+				request.setAttribute("error", "学生编号已存在！");
 				request.setAttribute("mainPage", "admin/studentSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 				try {
@@ -258,7 +258,7 @@ public class StudentServlet extends HttpServlet{
 				request.getRequestDispatcher("student?action=list").forward(request, response);
 			} else {
 				request.setAttribute("student", student);
-				request.setAttribute("error", "保存信息失败");
+				request.setAttribute("error", "新增学生信息失败！");
 				request.setAttribute("mainPage", "admin/studentSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			}

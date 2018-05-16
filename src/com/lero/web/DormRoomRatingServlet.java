@@ -193,7 +193,7 @@ public class DormRoomRatingServlet extends HttpServlet{
 				request.getRequestDispatcher("dormRoomRating?action=list").forward(request, response);
 			} else {
 				request.setAttribute("visitorRecord", dormRoomRating);
-				request.setAttribute("error", "保存异常！");
+				request.setAttribute("error", "新增寝室评比失败！");
 				request.setAttribute("mainPage", "admin/dormRoomRatingSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			}

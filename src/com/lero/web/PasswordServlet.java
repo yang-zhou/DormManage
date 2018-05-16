@@ -64,52 +64,52 @@ public class PasswordServlet extends HttpServlet{
 					request.setAttribute("oldPassword", oldPassword);
 					request.setAttribute("newPassword", newPassword);
 					request.setAttribute("rPassword", newPassword);
-					request.setAttribute("error", "�޸ĳɹ� ");
+					request.setAttribute("error", "密码更新成功！ ");
 					request.setAttribute("mainPage", "admin/passwordChange.jsp");
 					request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 				} else {
 					request.setAttribute("oldPassword", oldPassword);
 					request.setAttribute("newPassword", newPassword);
 					request.setAttribute("rPassword", newPassword);
-					request.setAttribute("error", "ԭ�������");
+					request.setAttribute("error", "验证密码错误！");
 					request.setAttribute("mainPage", "admin/passwordChange.jsp");
 					request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 				}
 			} else if("dormManager".equals((String)currentUserType)) {
 				DormManager manager = (DormManager)(session.getAttribute("currentUser"));
 				if(oldPassword.equals(manager.getPassword())) {
-					userDao.adminUpdate(con, manager.getDormManagerId(), newPassword);
+					userDao.managerUpdate(con, manager.getDormManagerId(), newPassword);
 					manager.setPassword(newPassword);
 					request.setAttribute("oldPassword", oldPassword);
 					request.setAttribute("newPassword", newPassword);
 					request.setAttribute("rPassword", newPassword);
-					request.setAttribute("error", "�޸ĳɹ� ");
+					request.setAttribute("error", "密码更新成功！");
 					request.setAttribute("mainPage", "dormManager/passwordChange.jsp");
 					request.getRequestDispatcher("mainManager.jsp").forward(request, response);
 				} else {
 					request.setAttribute("oldPassword", oldPassword);
 					request.setAttribute("newPassword", newPassword);
 					request.setAttribute("rPassword", newPassword);
-					request.setAttribute("error", "ԭ�������");
+					request.setAttribute("error", "验证密码错误！");
 					request.setAttribute("mainPage", "dormManager/passwordChange.jsp");
 					request.getRequestDispatcher("mainManager.jsp").forward(request, response);
 				}
 			} else if("student".equals((String)currentUserType)) {
 				Student student = (Student)(session.getAttribute("currentUser"));
 				if(oldPassword.equals(student.getPassword())) {
-					userDao.adminUpdate(con, student.getStudentId(), newPassword);
+					userDao.studentUpdate(con, student.getStudentId(), newPassword);
 					student.setPassword(newPassword);
 					request.setAttribute("oldPassword", oldPassword);
 					request.setAttribute("newPassword", newPassword);
 					request.setAttribute("rPassword", newPassword);
-					request.setAttribute("error", "�޸ĳɹ� ");
+					request.setAttribute("error", "密码更新成功！ ");
 					request.setAttribute("mainPage", "student/passwordChange.jsp");
 					request.getRequestDispatcher("mainStudent.jsp").forward(request, response);
 				} else {
 					request.setAttribute("oldPassword", oldPassword);
 					request.setAttribute("newPassword", newPassword);
 					request.setAttribute("rPassword", newPassword);
-					request.setAttribute("error", "ԭ�������");
+					request.setAttribute("error", "验证密码错误！");
 					request.setAttribute("mainPage", "student/passwordChange.jsp");
 					request.getRequestDispatcher("mainStudent.jsp").forward(request, response);
 				}

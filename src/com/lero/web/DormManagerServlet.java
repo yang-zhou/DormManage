@@ -166,7 +166,7 @@ public class DormManagerServlet extends HttpServlet{
 				saveNum = dormManagerDao.dormManagerUpdate(con, dormManager);
 			} else if(dormManagerDao.haveManagerByUser(con, dormManager.getUserName())){
 				request.setAttribute("dormManager", dormManager);
-				request.setAttribute("error", "查询错误");
+				request.setAttribute("error", "该宿舍已绑定管理员！");
 				request.setAttribute("mainPage", "admin/dormManagerSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 				try {
@@ -182,7 +182,7 @@ public class DormManagerServlet extends HttpServlet{
 				request.getRequestDispatcher("dormManager?action=list").forward(request, response);
 			} else {
 				request.setAttribute("dormManager", dormManager);
-				request.setAttribute("error", "查询错误");
+				request.setAttribute("error", "新增管理员失败！");
 				request.setAttribute("mainPage", "dormManager/dormManagerSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			}

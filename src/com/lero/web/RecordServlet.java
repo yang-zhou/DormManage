@@ -190,7 +190,7 @@ public class RecordServlet extends HttpServlet{
 			Student student = StudentDao.getNameById(con, studentNumber, buildId);
 			if(student.getName() == null) {
 				request.setAttribute("record", record);
-				request.setAttribute("error", "Ñ§ºÅ²»ÔÚÄú¹ÜÀíµÄËŞÉáÂ¥ÄÚ");
+				request.setAttribute("error", "å­¦ç”Ÿä¿¡æ¯å¼‚å¸¸ï¼");
 				request.setAttribute("mainPage", "dormManager/recordSave.jsp");
 				request.getRequestDispatcher("mainManager.jsp").forward(request, response);
 			} else {
@@ -206,7 +206,7 @@ public class RecordServlet extends HttpServlet{
 					request.getRequestDispatcher("record?action=list").forward(request, response);
 				} else {
 					request.setAttribute("record", record);
-					request.setAttribute("error", "±£´æÊ§°Ü");
+					request.setAttribute("error", "æ–°å¢è€ƒå‹¤è®°å½•å¤±è´¥ï¼");
 					request.setAttribute("mainPage", "dormManager/recordSave.jsp");
 					request.getRequestDispatcher("mainManager.jsp").forward(request, response);
 				}

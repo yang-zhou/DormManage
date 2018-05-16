@@ -204,7 +204,7 @@ public class DormRoomServlet extends HttpServlet{
 				request.getRequestDispatcher("dormRoom?action=list").forward(request, response);
 			} else {
 				request.setAttribute("dormRoom", dormRoom);
-				request.setAttribute("error", "保存异常！");
+				request.setAttribute("error", "新增寝室失败！");
 				request.setAttribute("mainPage", "admin/dormRoomSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			}

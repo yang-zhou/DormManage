@@ -202,7 +202,7 @@ public class DormBuildServlet extends HttpServlet{
 				request.getRequestDispatcher("dormBuild?action=list").forward(request, response);
 			} else {
 				request.setAttribute("dormBuild", dormBuild);
-				request.setAttribute("error", "查询错误");
+				request.setAttribute("error", "新增宿舍失败！");
 				request.setAttribute("mainPage", "dormBuild/dormBuildSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			}

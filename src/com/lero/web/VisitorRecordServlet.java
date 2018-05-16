@@ -192,7 +192,7 @@ public class VisitorRecordServlet extends HttpServlet{
 				request.getRequestDispatcher("visitorRecord?action=list").forward(request, response);
 			} else {
 				request.setAttribute("visitorRecord", visitorRecord);
-				request.setAttribute("error", "保存异常！");
+				request.setAttribute("error", "新增访问记录失败！");
 				request.setAttribute("mainPage", "admin/visitorRecordSave.jsp");
 				request.getRequestDispatcher("mainAdmin.jsp").forward(request, response);
 			}
