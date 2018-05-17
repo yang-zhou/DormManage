@@ -48,6 +48,7 @@ public class LoginServlet extends HttpServlet {
 			Admin currentAdmin = null;
 			DormManager currentDormManager = null;
 			Student currentStudent = null;
+			
 			if("admin".equals(userType)) {
 				Admin admin = new Admin(userName, password);
 				currentAdmin = userDao.Login(con, admin);

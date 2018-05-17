@@ -140,13 +140,25 @@
         </label>
         <button class="btn btn-large btn-primary" type="submit">登录</button>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <button class="btn btn-large btn-primary" type="button" >重置</button>
+        <button id="resetButton" class="btn btn-large btn-primary" type="button">重置</button>
 
 		<p align="center" style="padding-top: 15px;"></p>
       </form>
 </div>
 </body>
 <script type="text/javascript">
+$("#resetButton").off();
+$("#resetButton").on("click", function(){
+	clearAllCookie();
+	location.reload();
+});
+function clearAllCookie() {  
+    var keys = document.cookie.match(/[^ =;]+(?=\=)/g);  
+    if(keys) {  
+        for(var i = keys.length; i--;)  
+            document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()  
+    }  
+} 
 $(document).ready(function(){
 	console.log("<%=userType%>");
 	if("<%=userType%>" != ""){

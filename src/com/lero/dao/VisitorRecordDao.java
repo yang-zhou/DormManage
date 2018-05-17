@@ -21,6 +21,9 @@ public class VisitorRecordDao {
 		if(StringUtil.isNotEmpty(visitorRecord.getVisName())) {
 			sb.append(" and t1.vis_name like '%"+visitorRecord.getVisName()+"%'");
 		}
+		if(StringUtil.isNotEmpty(visitorRecord.getVisDormBuild())) {
+			sb.append(" and t1.vis_dorm_build like '%"+visitorRecord.getVisDormBuild()+"%'");
+		}
 		if(StringUtil.isNotEmpty(visitorRecord.getVisDormBuildRoom())) {
 			sb.append(" and t1.vis_dorm_build_room like '%"+visitorRecord.getVisDormBuildRoom()+"%'");
 		}
