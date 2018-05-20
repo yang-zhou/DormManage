@@ -2,15 +2,15 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50637
+Source Server Version : 50719
 Source Host           : localhost:3306
 Source Database       : db_dorm
 
 Target Server Type    : MYSQL
-Target Server Version : 50637
+Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-05-16 15:23:14
+Date: 2018-05-20 11:00:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -135,7 +135,7 @@ CREATE TABLE `t_dorm_room_rating` (
   `rating_date` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_dorm_room_rating
@@ -177,11 +177,12 @@ CREATE TABLE `t_stored_item` (
   `strored_status` tinyint(2) DEFAULT NULL COMMENT '状态',
   `stored_remark` varchar(255) DEFAULT NULL COMMENT '备注信息',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of t_stored_item
 -- ----------------------------
+INSERT INTO `t_stored_item` VALUES ('1', '2', '2018-05-20 10:39:46', '2018-05-20 20:00:00', '0', '相机一台');
 
 -- ----------------------------
 -- Table structure for t_student
@@ -206,9 +207,9 @@ CREATE TABLE `t_student` (
 -- ----------------------------
 -- Records of t_student
 -- ----------------------------
-INSERT INTO `t_student` VALUES ('2', '002', '123', '李四', '6', '1114', '男', '32', null, null, null, null);
+INSERT INTO `t_student` VALUES ('2', '002', '321', '李四', '6', '1114', '男', '32', null, null, null, null);
 INSERT INTO `t_student` VALUES ('9', '007', '123', '测试1', '1', '1245', '男', '123', null, null, null, null);
-INSERT INTO `t_student` VALUES ('10', 'test', '123', 'test', '6', '1113', '男', 'test', null, null, null, null);
+INSERT INTO `t_student` VALUES ('10', '003', '123', 'test', '6', '1113', '男', 'test', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for t_visitor
@@ -233,8 +234,7 @@ CREATE TABLE `t_visitor` (
 -- ----------------------------
 -- Records of t_visitor
 -- ----------------------------
-INSERT INTO `t_visitor` VALUES ('11', '王晓婉', '1', '51152316621302', '18565221654', '13', null, '1231', '2018-05-11 03:03:04', '2018-05-11 03:03:04', 'admin', '送水');
-INSERT INTO `t_visitor` VALUES ('12', '张大富', '1', '51152316621302', '18565232665', '14', null, '3014', '2018-05-11 16:12:50', '2018-05-11 16:12:50', 'admin', '送外卖');
-INSERT INTO `t_visitor` VALUES ('13', '王文霞', '0', '51152316621302', '18565232665', '6', '德语居', '2310', '2018-05-12 21:16:10', '2018-05-12 21:16:10', '123456', '母亲访问');
-INSERT INTO `t_visitor` VALUES ('14', '王大幅', '1', '51152316621302', '18565232665', '6', '德语居', '123123', '2018-05-11 03:03:04', '2018-05-12 00:00:00', '123456', '送外卖');
-INSERT INTO `t_visitor` VALUES ('18', '李小萌', '0', '51152316621302', '18565232665', '6', '德语居', '5102', '2018-05-27 02:09:04', '2018-05-12 20:03:03', '123456', '维修宿舍电器设备');
+INSERT INTO `t_visitor` VALUES ('13', '王文霞', '0', '51152316621302', '18565232665', '6', '德语居', '1113', '2018-05-12 21:16:10', '2018-05-12 21:16:10', '123456', '母亲访问');
+INSERT INTO `t_visitor` VALUES ('14', '王大幅', '1', '51152316621302', '18565232665', '1', '明知居', '1245', '2018-05-11 03:03:04', '2018-05-12 00:00:00', '123456', '送外卖');
+INSERT INTO `t_visitor` VALUES ('18', '李小萌', '0', '51152316621302', '18565232665', '1', '明知居', '1246', '2018-05-27 02:09:04', '2018-05-12 20:03:03', '123456', '维修宿舍电器设备');
+SET FOREIGN_KEY_CHECKS=1;
