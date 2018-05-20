@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page import="com.lero.model.Admin" %>
-<%@ page import="com.lero.model.DormManager" %>
-<%@ page import="com.lero.model.Student" %>
+<%@ page import="com.dorm.model.Admin" %>
+<%@ page import="com.dorm.model.DormManager" %>
+<%@ page import="com.dorm.model.Student" %>
 <%
 	String userName=null;
 	String password=null;

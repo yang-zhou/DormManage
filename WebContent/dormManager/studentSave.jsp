@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="com.lero.model.*" %>
+<%@ page import="com.dorm.model.*" %>
 <%
 Student student = (Student)request.getAttribute("student");
 DormManager manager = (DormManager)(session.getAttribute("currentUser"));

@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
-<%@ page import="com.lero.model.Admin" %>
-<%@ page import="com.lero.model.DormManager" %>
-<%@ page import="com.lero.model.Student" %>
+<%@ page import="com.dorm.model.Admin" %>
+<%@ page import="com.dorm.model.DormManager" %>
+<%@ page import="com.dorm.model.Student" %>
 <html lang="zh">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -96,7 +96,7 @@
 					<li><a href="dormRoom?action=list"><i class="icon-chevron-right"></i>寝室管理</a></li>
 					<li><a href="dormRoomRating?action=list"><i class="icon-chevron-right"></i>寝室评比</a></li>
 					<!-- <li><a href="record?action=list"><i class="icon-chevron-right"></i>缺勤记录</a></li> -->
-					<li><a href="storageGoods?action=list"><i class="icon-chevron-right"></i>物品寄放管理</a></li>
+					<li><a href="storageGoodsWeb?action=list"><i class="icon-chevron-right"></i>物品寄放管理</a></li>
 					<li><a href="visitorRecord?action=list"><i class="icon-chevron-right"></i>外来访问记录</a></li>
 					<li><a href="password?action=preChange"><i class="icon-chevron-right"></i>修改密码</a></li>
 					<li><a href="login.jsp"><i class="icon-chevron-right"></i>退出系统</a></li>
